@@ -14,6 +14,7 @@ namespace EmployeeAccounting.Forms
         public string Surname { get; set; }
         public string Patronymic { get; set; }
         public string Position { get; set; }
+        public decimal Salary { get; set; }
 
         public AddNewEmployeeController(IRepository<Employee> repository)
         {

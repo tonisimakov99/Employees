@@ -69,6 +69,8 @@
     <Compile Include="Employer.cs" />
     <Compile Include="DataExchange\XMLExporter.cs" />
     <Compile Include="DataBase\IRepository.cs" />
+    <Compile Include="Forms\IMainView.cs" />
+    <Compile Include="IEmployer.cs" />
     <Compile Include="Searcher\ISearcher.cs" />
     <Compile Include="DataExchange\IExporter.cs" />
     <Compile Include="DataExchange\IImporter.cs" />
@@ -100,6 +102,8 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\EmployeeAccounting.DataBase.Employee.datasource" />
+    <None Include="Properties\DataSources\EmployeeAccounting.Forms.MainController.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

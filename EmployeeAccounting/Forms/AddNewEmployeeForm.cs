@@ -45,5 +45,10 @@ namespace EmployeeAccounting
         {
             this.Close();
         }
+
+        private void SalaryNumericUpDownValueChanged(object sender, EventArgs e)
+        {
+            Controller.Salary = SalaryNumericUpDown.Value;
+        }
     }
 }

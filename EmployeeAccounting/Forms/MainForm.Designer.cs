@@ -24,14 +24,14 @@ namespace EmployeeAccounting
 
         private void CustomInitializeComponent()
         {
-            this.EmployeesDataGrid.DataSource = Controller.CurrentGridSource;
+            //this.EmployeesDataGrid.DataSource = Controller.CurrentGridSource;
             this.EmployeesDataGrid.RowContextMenuStripNeeded += GridContextMenuCall;
 
-            this.dismissToolStripMenuItem.Click += Dissmiss;
-            this.recruiteToolStripMenuItem.Click += Recruite;
+            this.dismissToolStripMenuItem.Click += DismissMenuItemClick;
+            this.recruiteToolStripMenuItem.Click += RecruiteMenuItemClick;
 
-            this.SaveToXMLButton.Click += SaveToXMLButtonClick;
-            this.OpenFromXMLButton.Click += OpenFromXMLButtonClick;
+            this.SaveToXMLButton.Click += SaveToXmlButtonClick;
+            this.OpenFromXMLButton.Click += OpenFromXmlButtonClick;
         }
 
 
@@ -53,6 +53,25 @@ namespace EmployeeAccounting
             this.SearchInputStr = new System.Windows.Forms.TextBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.SaveToXMLButton = new System.Windows.Forms.Button();
+            this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.surNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.middleNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.positionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.employmentDateDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dismissalDateDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label1 = new System.Windows.Forms.Label();
+            this.TotalLabel = new System.Windows.Forms.Label();
+            this.CurrentLabel = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.DismissedLabel = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.MaxLabel = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.AverageLabel = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.MinLabel = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.EmployeesDataGrid)).BeginInit();
             this.RowContextMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -152,11 +171,165 @@ namespace EmployeeAccounting
             this.SaveToXMLButton.Text = "Save to XML";
             this.SaveToXMLButton.UseVisualStyleBackColor = true;
             // 
+            // idDataGridViewTextBoxColumn
+            // 
+            this.idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
+            // 
+            // nameDataGridViewTextBoxColumn
+            // 
+            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
+            // 
+            // surNameDataGridViewTextBoxColumn
+            // 
+            this.surNameDataGridViewTextBoxColumn.Name = "surNameDataGridViewTextBoxColumn";
+            // 
+            // middleNameDataGridViewTextBoxColumn
+            // 
+            this.middleNameDataGridViewTextBoxColumn.Name = "middleNameDataGridViewTextBoxColumn";
+            // 
+            // positionDataGridViewTextBoxColumn
+            // 
+            this.positionDataGridViewTextBoxColumn.Name = "positionDataGridViewTextBoxColumn";
+            // 
+            // employmentDateDataGridViewTextBoxColumn
+            // 
+            this.employmentDateDataGridViewTextBoxColumn.Name = "employmentDateDataGridViewTextBoxColumn";
+            // 
+            // dismissalDateDataGridViewTextBoxColumn
+            // 
+            this.dismissalDateDataGridViewTextBoxColumn.Name = "dismissalDateDataGridViewTextBoxColumn";
+            // 
+            // label1
+            // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(225, 453);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(31, 13);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "Total";
+            // 
+            // TotalLabel
+            // 
+            this.TotalLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.TotalLabel.AutoSize = true;
+            this.TotalLabel.Location = new System.Drawing.Point(284, 453);
+            this.TotalLabel.Name = "TotalLabel";
+            this.TotalLabel.Size = new System.Drawing.Size(0, 13);
+            this.TotalLabel.TabIndex = 7;
+            // 
+            // CurrentLabel
+            // 
+            this.CurrentLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.CurrentLabel.AutoSize = true;
+            this.CurrentLabel.Location = new System.Drawing.Point(284, 466);
+            this.CurrentLabel.Name = "CurrentLabel";
+            this.CurrentLabel.Size = new System.Drawing.Size(0, 13);
+            this.CurrentLabel.TabIndex = 9;
+            // 
+            // label4
+            // 
+            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(225, 466);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(41, 13);
+            this.label4.TabIndex = 8;
+            this.label4.Text = "Current";
+            // 
+            // DismissedLabel
+            // 
+            this.DismissedLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.DismissedLabel.AutoSize = true;
+            this.DismissedLabel.Location = new System.Drawing.Point(283, 479);
+            this.DismissedLabel.Name = "DismissedLabel";
+            this.DismissedLabel.Size = new System.Drawing.Size(0, 13);
+            this.DismissedLabel.TabIndex = 11;
+            // 
+            // label6
+            // 
+            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(224, 479);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(54, 13);
+            this.label6.TabIndex = 10;
+            this.label6.Text = "Dismissed";
+            // 
+            // MaxLabel
+            // 
+            this.MaxLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.MaxLabel.AutoSize = true;
+            this.MaxLabel.Location = new System.Drawing.Point(387, 453);
+            this.MaxLabel.Name = "MaxLabel";
+            this.MaxLabel.Size = new System.Drawing.Size(0, 13);
+            this.MaxLabel.TabIndex = 13;
+            // 
+            // label8
+            // 
+            this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(345, 454);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(27, 13);
+            this.label8.TabIndex = 12;
+            this.label8.Text = "Max";
+            // 
+            // AverageLabel
+            // 
+            this.AverageLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.AverageLabel.AutoSize = true;
+            this.AverageLabel.Location = new System.Drawing.Point(387, 467);
+            this.AverageLabel.Name = "AverageLabel";
+            this.AverageLabel.Size = new System.Drawing.Size(0, 13);
+            this.AverageLabel.TabIndex = 15;
+            // 
+            // label10
+            // 
+            this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(345, 468);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(47, 13);
+            this.label10.TabIndex = 14;
+            this.label10.Text = "Average";
+            // 
+            // MinLabel
+            // 
+            this.MinLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.MinLabel.AutoSize = true;
+            this.MinLabel.Location = new System.Drawing.Point(387, 479);
+            this.MinLabel.Name = "MinLabel";
+            this.MinLabel.Size = new System.Drawing.Size(0, 13);
+            this.MinLabel.TabIndex = 17;
+            // 
+            // label12
+            // 
+            this.label12.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(345, 480);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(24, 13);
+            this.label12.TabIndex = 16;
+            this.label12.Text = "Min";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(796, 513);
+            this.Controls.Add(this.MinLabel);
+            this.Controls.Add(this.label12);
+            this.Controls.Add(this.AverageLabel);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.MaxLabel);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.DismissedLabel);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.CurrentLabel);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.TotalLabel);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.SaveToXMLButton);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.SearchInputStr);
@@ -185,5 +358,24 @@ namespace EmployeeAccounting
         private System.Windows.Forms.ContextMenuStrip RowContextMenu;
         private System.Windows.Forms.ToolStripMenuItem dismissToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem recruiteToolStripMenuItem;
+        private DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn surNameDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn middleNameDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn positionDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn employmentDateDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn dismissalDateDataGridViewTextBoxColumn;
+        private Label label1;
+        private Label TotalLabel;
+        private Label CurrentLabel;
+        private Label label4;
+        private Label DismissedLabel;
+        private Label label6;
+        private Label MaxLabel;
+        private Label label8;
+        private Label AverageLabel;
+        private Label label10;
+        private Label MinLabel;
+        private Label label12;
     }
 }

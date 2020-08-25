@@ -8,31 +8,19 @@ using EmployeeAccounting.DataBase;
 
 namespace EmployeeAccounting
 {
-    public class Employer
+    public class Employer:IEmployer
     {
-        private readonly IRepository<Employee> repository;
-        public Employer(IRepository<Employee> repository)
+        public Employee Recruite(Employee employee, DateTime date)
         {
-            this.repository = repository;
-        }
-
-        public void Recruite(int id, DateTime date)
-        {
-            var employee = repository.FindById(id);
-
             employee.EmploymentDate = date;
             employee.DismissalDate = null;
-
-            repository.Update(employee);
+            return employee;
         }
 
-        public void Dismiss(int id, DateTime date)
+        public Employee Dismiss(Employee employee, DateTime date)
         {
-            var employee = repository.FindById(id);
-
             employee.DismissalDate = date;
-
-            repository.Update(employee);
+            return employee;
         }
     }
 }

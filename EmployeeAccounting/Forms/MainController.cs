@@ -13,71 +13,82 @@ namespace EmployeeAccounting.Forms
 {
     public class MainController
     {
-        private Employer employer;
+        private IEmployer employer;
         private IRepository<Employee> repository;
         private ISearcher<Employee> searcher;
         private IExporter<Employee> exporter;
         private IImporter<Employee> importer;
-        public IList<Employee> CurrentGridSource { get; private set; }
-
-        public int SelectedEmployeeId;
-
-        public MainController(IRepository<Employee> repository, Employer employer, ISearcher<Employee> searcher, IExporter<Employee> exporter, IImporter<Employee> importer)
+        private IMainView mainView;
+        private IList<Employee> currentGridSource { get; set; }
+        public MainController(IMainView mainView, IRepository<Employee> repository, IEmployer employer,
+            ISearcher<Employee> searcher, IExporter<Employee> exporter, IImporter<Employee> importer)
         {
+            this.mainView = mainView;
             this.repository = repository;
             this.employer = employer;
             this.searcher = searcher;
             this.exporter = exporter;
             this.importer = importer;
-            CurrentGridSource = repository.GetAll().ToList();
+            SubscribeToView();
+            currentGridSource = repository.GetAll().ToList();
+            mainView.UpdateView(currentGridSource);
+        }
+
+        private void SubscribeToView()
+        {
+            mainView.OpenFromXmlCall += OpenFromXml;
+            mainView.SaveToXmlCall += SaveToXml;
+            mainView.AddNewEmployeeCall += AddNewEmployee;
+            mainView.RecruiteCall += Recruite;
+            mainView.DismissCall += Dismiss;
+            mainView.SearchInputTextChanged += Search;
         }
 
         public void AddNewEmployee(Employee employee)
         {
             repository.AddNew(employee);
-            var source = CurrentGridSource.ToList();
-            source.Add(employee);
-            CurrentGridSource = source;
+            currentGridSource.Add(employee);
+            mainView.UpdateView(currentGridSource);
         }
         
         public void Search(string str)
         {
             var keyWords = str.Trim().Split(' ');
             var result = searcher.Search(repository, keyWords);
-            CurrentGridSource = result.ToList();
+            currentGridSource = result.ToList();
+            mainView.UpdateView(currentGridSource);
         }
 
-        public void Dismiss()
+        public void Dismiss(int id)
         {
-            employer.Dismiss(SelectedEmployeeId, DateTime.Now);
-
-            UpdateSelectedEmployeeInGridSource();
+            var employee = repository.FindById(id);
+            employer.Dismiss(employee, DateTime.Today);
+            repository.Update(employee);
+            employer.Dismiss(currentGridSource.Single(t=>t.Id==id),DateTime.Today);
+            mainView.UpdateView(currentGridSource);
         }
 
-        public void Recruite()
+        public void Recruite(int id)
         {
-            employer.Recruite(SelectedEmployeeId, DateTime.Now);
-
-            UpdateSelectedEmployeeInGridSource();
+            var employee = repository.FindById(id);
+            employer.Recruite(employee, DateTime.Today);
+            repository.Update(employee);
+            employer.Recruite(currentGridSource.Single(t => t.Id == id), DateTime.Today);
+            mainView.UpdateView(currentGridSource);
         }
 
-        public void SaveToXML(Stream file)
+        public void SaveToXml(Stream file)
         {
             exporter.Export(repository.GetAll(), file);
         }
 
-        public void OpenFromXML(Stream file)
+        public void OpenFromXml(Stream file)
         {
             var employes = importer.Import(file);
             repository.Clear();
             repository.AddRange(employes);
-            CurrentGridSource = repository.GetAll().ToList();
-        }
-        private void UpdateSelectedEmployeeInGridSource()
-        {
-            var i = CurrentGridSource.IndexOf(CurrentGridSource.Single(t => t.Id == SelectedEmployeeId));
-            CurrentGridSource[i] = repository.FindById(SelectedEmployeeId);
-            CurrentGridSource = CurrentGridSource.ToList();
+            currentGridSource = repository.GetAll().ToList();
+            mainView.UpdateView(currentGridSource);
         }
     }
 }

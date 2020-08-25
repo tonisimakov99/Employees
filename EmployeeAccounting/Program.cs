@@ -27,13 +27,13 @@ namespace EmployeeAccounting
             Application.SetCompatibleTextRenderingDefault(false);
 
             var repository = new EmployeesEfRepository("DBConnection");
-            var employer = new Employer(repository);
+            var employer = new Employer();
             var searcher = new SearcherByString();
             var addNewEmployeeController = new AddNewEmployeeController(repository);
             var addNewEmployeeForm = new AddNewEmployeeForm(addNewEmployeeController);
-            var mainController = new MainController(repository, employer, searcher, exporter, importer);
-
-            Application.Run(new MainForm(repository, mainController, addNewEmployeeForm));
+            var mainForm = new MainForm(addNewEmployeeForm);
+            var mainController = new MainController(mainForm,repository, employer, searcher, exporter, importer);
+            Application.Run(mainForm);
 
         }
     }

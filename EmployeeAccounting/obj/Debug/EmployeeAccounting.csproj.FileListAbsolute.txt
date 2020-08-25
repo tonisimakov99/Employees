@@ -1,6 +1,4 @@
 C:\Users\tonis\source\repos\EmployeeAccounting\EmployeeAccounting\obj\Debug\EmployeeAccounting.csprojAssemblyReference.cache
-C:\Users\tonis\source\repos\EmployeeAccounting\EmployeeAccounting\obj\Debug\EmployeeAccounting.AddNewEmployeeForm.resources
-C:\Users\tonis\source\repos\EmployeeAccounting\EmployeeAccounting\obj\Debug\EmployeeAccounting.MainForm.resources
 C:\Users\tonis\source\repos\EmployeeAccounting\EmployeeAccounting\obj\Debug\EmployeeAccounting.csproj.GenerateResource.cache
 C:\Users\tonis\source\repos\EmployeeAccounting\EmployeeAccounting\obj\Debug\EmployeeAccounting.Properties.Resources.resources
 C:\Users\tonis\source\repos\EmployeeAccounting\EmployeeAccounting\bin\Debug\EmployeeAccounting.exe.config
@@ -13,3 +11,5 @@ C:\Users\tonis\source\repos\EmployeeAccounting\EmployeeAccounting\bin\Debug\Enti
 C:\Users\tonis\source\repos\EmployeeAccounting\EmployeeAccounting\obj\Debug\EmployeeAccounting.csproj.CopyComplete
 C:\Users\tonis\source\repos\EmployeeAccounting\EmployeeAccounting\obj\Debug\EmployeeAccounting.exe
 C:\Users\tonis\source\repos\EmployeeAccounting\EmployeeAccounting\obj\Debug\EmployeeAccounting.pdb
+C:\Users\tonis\source\repos\EmployeeAccounting\EmployeeAccounting\obj\Debug\EmployeeAccounting.Views.AddNewEmployeeForm.resources
+C:\Users\tonis\source\repos\EmployeeAccounting\EmployeeAccounting\obj\Debug\EmployeeAccounting.Views.MainForm.resources

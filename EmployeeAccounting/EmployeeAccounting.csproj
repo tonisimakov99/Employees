@@ -76,7 +76,8 @@
     <Compile Include="DataExchange\IExporter.cs" />
     <Compile Include="DataExchange\IImporter.cs" />
     <Compile Include="DataExchange\XmlImporter.cs" />
-    <Compile Include="Views\IView.cs" />
+    <Compile Include="Views\ISaveOpenView.cs" />
+    <Compile Include="Views\IDialog.cs" />
     <Compile Include="Views\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -87,6 +88,8 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Searcher\SearcherByString.cs" />
+    <Compile Include="Views\OpenForm.cs" />
+    <Compile Include="Views\SaveForm.cs" />
     <EmbeddedResource Include="Views\AddNewEmployeeForm.resx">
       <DependentUpon>AddNewEmployeeForm.cs</DependentUpon>
     </EmbeddedResource>

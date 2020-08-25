@@ -8,7 +8,7 @@ using EmployeeAccounting.DataBase;
 
 namespace EmployeeAccounting.Views
 {
-    public interface IMainView:IView
+    public interface IMainView
     {
         void UpdateView(IEnumerable<Employee> source);
 
@@ -16,7 +16,7 @@ namespace EmployeeAccounting.Views
         event Action OpenFromXmlCall;
         event Action<int> DismissCall;
         event Action<int> RecruitCall;
-        event Action<Employee> AddNewEmployeeCall;
+        event Action AddNewEmployeeCall;
         event Action<string> SearchInputTextChanged;
     }
 }

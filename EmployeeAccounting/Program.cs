@@ -28,8 +28,9 @@ namespace EmployeeAccounting.Views
             var searcher = new SearcherByString();
             var addNewEmployeeForm = new AddNewEmployeeForm();
             var addNewEmployeeController = new AddNewEmployeeController(addNewEmployeeForm);
-            var mainForm = new MainForm(addNewEmployeeController);
-            var mainController = new MainController(mainForm,repository, employer, searcher, exporter, importer);
+            var mainForm = new MainForm();
+            var mainController = new MainController(addNewEmployeeController, mainForm, repository, employer, searcher,
+                exporter, importer);
             Application.Run(mainForm);
 
         }

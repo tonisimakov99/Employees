@@ -20,8 +20,9 @@ namespace EmployeeAccounting.Controllers
         private readonly IExporter<Employee> exporter;
         private readonly IImporter<Employee> importer;
         private IList<Employee> currentGridSource;
+        private readonly AddNewEmployeeController addNewEmployeeController;
         public IMainView MainView { get; private set; }
-        public MainController(IMainView mainView, IRepository<Employee> repository, IEmployer employer,
+        public MainController(AddNewEmployeeController addNewEmployeeController, IMainView mainView, IRepository<Employee> repository, IEmployer employer,
             ISearcher<Employee> searcher, IExporter<Employee> exporter, IImporter<Employee> importer)
         {
             this.MainView = mainView;
@@ -30,6 +31,7 @@ namespace EmployeeAccounting.Controllers
             this.searcher = searcher;
             this.exporter = exporter;
             this.importer = importer;
+            this.addNewEmployeeController = addNewEmployeeController;
             SubscribeToView();
             currentGridSource = repository.GetAll().ToList();
             mainView.UpdateView(currentGridSource);
@@ -45,8 +47,18 @@ namespace EmployeeAccounting.Controllers
             MainView.SearchInputTextChanged += Search;
         }
 
-        public void AddNewEmployee(Employee employee)
+        public void AddNewEmployee()
         {
+            if (addNewEmployeeController.addNewEmployeeView.ShowDialog() == DialogResult.Cancel) return;
+            var employee = new Employee()
+            {
+                Name = addNewEmployeeController.Name,
+                SurName = addNewEmployeeController.Surname,
+                MiddleName = addNewEmployeeController.MiddleName,
+                Position = addNewEmployeeController.Position,
+                Salary = addNewEmployeeController.Salary,
+                EmploymentDate = DateTime.Now
+            };
             repository.AddNew(employee);
             currentGridSource.Add(employee);
             MainView.UpdateView(currentGridSource);
@@ -80,11 +92,10 @@ namespace EmployeeAccounting.Controllers
 
         public void SaveToXml()
         {
-            using (var saveFileDialog = new SaveFileDialog())
+            using (var saveForm = new SaveForm(exporter.FileFilter))
             {
-                saveFileDialog.Filter = exporter.FileFilter;
-                if (saveFileDialog.ShowDialog() == DialogResult.Cancel) return;
-                using (var file = saveFileDialog.OpenFile())
+                if (saveForm.ShowDialog() == DialogResult.Cancel) return;
+                using (var file = saveForm.OpenFile())
                 {
                     exporter.Export(repository.GetAll(), file);
                 }
@@ -93,11 +104,10 @@ namespace EmployeeAccounting.Controllers
 
         public void OpenFromXml()
         {
-            using (var openFileDialog = new OpenFileDialog())
+            using (var openForm = new OpenForm(importer.FileFilter))
             {
-                openFileDialog.Filter = importer.FileFilter;
-                if (openFileDialog.ShowDialog() == DialogResult.Cancel) return;
-                using (var file = openFileDialog.OpenFile())
+                if (openForm.ShowDialog() == DialogResult.Cancel) return;
+                using (var file = openForm.OpenFile())
                 {
                     var employes = importer.Import(file);
                     repository.Clear();

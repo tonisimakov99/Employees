@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace EmployeeAccounting.Views
 {
-    public interface IView
+    public interface IDialog
     {
         DialogResult ShowDialog();
     }

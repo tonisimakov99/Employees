@@ -12,19 +12,17 @@ namespace EmployeeAccounting.Views
 {
     public partial class MainForm : Form, IMainView
     {
-        private readonly AddNewEmployeeController addNewEmployeeController;
         private int selectedRow;
         
         public event Action SaveToXmlCall;
         public event Action OpenFromXmlCall;
         public event Action<int> DismissCall;
         public event Action<int> RecruitCall;
-        public event Action<Employee> AddNewEmployeeCall;
+        public event Action AddNewEmployeeCall;
         public event Action<string> SearchInputTextChanged;
         
-        public MainForm(AddNewEmployeeController addNewEmployeeController)
+        public MainForm()
         {
-            this.addNewEmployeeController = addNewEmployeeController;
             InitializeComponent();
             CustomInitializeComponent();
         }
@@ -77,19 +75,7 @@ namespace EmployeeAccounting.Views
 
         private void AddNewEmployeeButtonClick(object sender, EventArgs e)
         {
-            if (addNewEmployeeController.addNewEmployeeView.ShowDialog() != DialogResult.Cancel)
-            {
-                var employee = new Employee()
-                {
-                    Name = addNewEmployeeController.Name,
-                    SurName = addNewEmployeeController.Surname,
-                    MiddleName = addNewEmployeeController.MiddleName,
-                    Position = addNewEmployeeController.Position,
-                    Salary = addNewEmployeeController.Salary,
-                    EmploymentDate = DateTime.Now
-                };
-                AddNewEmployeeCall?.Invoke(employee);
-            }
+            AddNewEmployeeCall?.Invoke();
         }
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EmployeeAccounting.Views
 {
-    public interface IAddNewEmployeeView:IView
+    public interface IAddNewEmployeeView:IDialog
     {
         event Action<string> OnSurnameChanged;
         event Action<string> OnNameChanged;

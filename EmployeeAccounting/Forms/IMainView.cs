@@ -12,8 +12,8 @@ namespace EmployeeAccounting.Forms
     {
         void UpdateView(IEnumerable<Employee> source);
 
-        event Action<Stream> SaveToXmlCall;
-        event Action<Stream> OpenFromXmlCall;
+        event Action SaveToXmlCall;
+        event Action OpenFromXmlCall;
         event Action<int> DismissCall;
         event Action<int> RecruiteCall;
         event Action<Employee> AddNewEmployeeCall;

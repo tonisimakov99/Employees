@@ -9,13 +9,15 @@ using EmployeeAccounting.DataBase;
 
 namespace EmployeeAccounting.DataExchange
 {
-    public class XMLImporter:IImporter<Employee>
+    public class XmlImporter:IImporter<Employee>
     {
         private XmlSerializer serializer;
-        public XMLImporter(XmlSerializer serializer)
+        public XmlImporter(XmlSerializer serializer)
         {
             this.serializer = serializer;
         }
+
+        public string FileFilter { get; set; }
 
         public IEnumerable<Employee> Import(Stream file)
         {

@@ -9,6 +9,7 @@ namespace EmployeeAccounting.DataExchange
 {
     public interface IImporter<T> where T:class
     {
+        string FileFilter { get; }
         IEnumerable<T> Import(Stream file);
     }
 }

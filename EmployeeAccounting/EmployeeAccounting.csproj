@@ -67,14 +67,14 @@
     <Compile Include="DataBase\Context.cs" />
     <Compile Include="DataBase\EmployeesEfRepository.cs" />
     <Compile Include="Employer.cs" />
-    <Compile Include="DataExchange\XMLExporter.cs" />
+    <Compile Include="DataExchange\XmlExporter.cs" />
     <Compile Include="DataBase\IRepository.cs" />
     <Compile Include="Forms\IMainView.cs" />
     <Compile Include="IEmployer.cs" />
     <Compile Include="Searcher\ISearcher.cs" />
     <Compile Include="DataExchange\IExporter.cs" />
     <Compile Include="DataExchange\IImporter.cs" />
-    <Compile Include="DataExchange\XMLImporter.cs" />
+    <Compile Include="DataExchange\XmlImporter.cs" />
     <Compile Include="Forms\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>

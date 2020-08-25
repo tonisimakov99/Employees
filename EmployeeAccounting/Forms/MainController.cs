@@ -77,18 +77,38 @@ namespace EmployeeAccounting.Forms
             mainView.UpdateView(currentGridSource);
         }
 
-        public void SaveToXml(Stream file)
+        public void SaveToXml()
         {
-            exporter.Export(repository.GetAll(), file);
+            using (var saveFileDialog = new SaveFileDialog())
+            {
+                saveFileDialog.Filter = exporter.FileFilter;
+                if (saveFileDialog.ShowDialog() != DialogResult.Cancel)
+                {
+                    using (var file = saveFileDialog.OpenFile())
+                    {
+                        exporter.Export(repository.GetAll(), file);
+                    }
+                }
+            }
         }
 
-        public void OpenFromXml(Stream file)
+        public void OpenFromXml()
         {
-            var employes = importer.Import(file);
-            repository.Clear();
-            repository.AddRange(employes);
-            currentGridSource = repository.GetAll().ToList();
-            mainView.UpdateView(currentGridSource);
+            using (var openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.Filter = "";
+                if (openFileDialog.ShowDialog() != DialogResult.Cancel)
+                {
+                    using (var file = openFileDialog.OpenFile())
+                    {
+                        var employes = importer.Import(file);
+                        repository.Clear();
+                        repository.AddRange(employes);
+                        currentGridSource = repository.GetAll().ToList();
+                        mainView.UpdateView(currentGridSource);
+                    }
+                }
+            }
         }
     }
 }

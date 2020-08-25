@@ -10,8 +10,8 @@ namespace EmployeeAccounting
 {
     public partial class MainForm : Form, IMainView
     {
-        public event Action<Stream> SaveToXmlCall;
-        public event Action<Stream> OpenFromXmlCall;
+        public event Action SaveToXmlCall;
+        public event Action OpenFromXmlCall;
         public event Action<int> DismissCall;
         public event Action<int> RecruiteCall;
         public event Action<Employee> AddNewEmployeeCall;
@@ -52,29 +52,17 @@ namespace EmployeeAccounting
 
         private void OpenFromXmlButtonClick(object sender, System.EventArgs e)
         {
-            using (var openFileDialog = new OpenFileDialog())
-            {
-                if (openFileDialog.ShowDialog() != DialogResult.Cancel)
-                {
-                    using (var file = openFileDialog.OpenFile())
-                        OpenFromXmlCall?.Invoke(file);
-                }
-            }
+            OpenFromXmlCall?.Invoke();
         }
 
         private void SaveToXmlButtonClick(object sender, System.EventArgs e)
         {
             using (var saveFileDialog = new SaveFileDialog())
             {
-                if (saveFileDialog.ShowDialog() != DialogResult.Cancel)
-                {
-                    using (var file = saveFileDialog.OpenFile())
-                        SaveToXmlCall?.Invoke(file);
-                }
+                SaveToXmlCall?.Invoke();
             }
-        }
 
-        private void DismissMenuItemClick(object sender, EventArgs e)
+            private void DismissMenuItemClick(object sender, EventArgs e)
         {
             DismissCall?.Invoke((int)EmployeesDataGrid[0,selectedRow].Value);
             this.EmployeesDataGrid.FirstDisplayedScrollingRowIndex = selectedRow;

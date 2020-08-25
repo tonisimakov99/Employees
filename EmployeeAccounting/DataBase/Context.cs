@@ -9,11 +9,11 @@ namespace EmployeeAccounting.DataBase
 {
     public class Context<T>:DbContext where T:class
     {
+        public DbSet<T> Employees { get; set; }
         public Context(string connectionStr):base(connectionStr)
         {
 
         }
 
-        public DbSet<T> Employees { get; set; }
     }
 }

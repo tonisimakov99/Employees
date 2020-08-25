@@ -1,5 +1,5 @@
 ﻿using System.Windows.Forms;
-namespace EmployeeAccounting
+namespace EmployeeAccounting.Views
 {
     partial class AddNewEmployeeForm
     {
@@ -93,7 +93,7 @@ namespace EmployeeAccounting
             this.MiddleNameInput.Name = "MiddleNameInput";
             this.MiddleNameInput.Size = new System.Drawing.Size(200, 20);
             this.MiddleNameInput.TabIndex = 4;
-            this.MiddleNameInput.TextChanged += new System.EventHandler(this.PatronymicChanged);
+            this.MiddleNameInput.TextChanged += new System.EventHandler(this.MiddleNameChanged);
             // 
             // PositionLabel
             // 

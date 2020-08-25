@@ -8,8 +8,9 @@ using System.Windows.Forms;
 using EmployeeAccounting.DataBase;
 using EmployeeAccounting.DataExchange;
 using EmployeeAccounting.Searcher;
+using EmployeeAccounting.Views;
 
-namespace EmployeeAccounting.Forms
+namespace EmployeeAccounting.Controllers
 {
     public class MainController
     {
@@ -18,12 +19,12 @@ namespace EmployeeAccounting.Forms
         private readonly ISearcher<Employee> searcher;
         private readonly IExporter<Employee> exporter;
         private readonly IImporter<Employee> importer;
-        private readonly IMainView mainView;
         private IList<Employee> currentGridSource;
+        public IMainView MainView { get; private set; }
         public MainController(IMainView mainView, IRepository<Employee> repository, IEmployer employer,
             ISearcher<Employee> searcher, IExporter<Employee> exporter, IImporter<Employee> importer)
         {
-            this.mainView = mainView;
+            this.MainView = mainView;
             this.repository = repository;
             this.employer = employer;
             this.searcher = searcher;
@@ -36,19 +37,19 @@ namespace EmployeeAccounting.Forms
 
         private void SubscribeToView()
         {
-            mainView.OpenFromXmlCall += OpenFromXml;
-            mainView.SaveToXmlCall += SaveToXml;
-            mainView.AddNewEmployeeCall += AddNewEmployee;
-            mainView.RecruiteCall += Recruite;
-            mainView.DismissCall += Dismiss;
-            mainView.SearchInputTextChanged += Search;
+            MainView.OpenFromXmlCall += OpenFromXml;
+            MainView.SaveToXmlCall += SaveToXml;
+            MainView.AddNewEmployeeCall += AddNewEmployee;
+            MainView.RecruitCall += Recruit;
+            MainView.DismissCall += Dismiss;
+            MainView.SearchInputTextChanged += Search;
         }
 
         public void AddNewEmployee(Employee employee)
         {
             repository.AddNew(employee);
             currentGridSource.Add(employee);
-            mainView.UpdateView(currentGridSource);
+            MainView.UpdateView(currentGridSource);
         }
         
         public void Search(string str)
@@ -56,7 +57,7 @@ namespace EmployeeAccounting.Forms
             var keyWords = str.Trim().Split(' ');
             var result = searcher.Search(repository, keyWords);
             currentGridSource = result.ToList();
-            mainView.UpdateView(currentGridSource);
+            MainView.UpdateView(currentGridSource);
         }
 
         public void Dismiss(int id)
@@ -65,16 +66,16 @@ namespace EmployeeAccounting.Forms
             employer.Dismiss(employee, DateTime.Today);
             repository.Update(employee);
             employer.Dismiss(currentGridSource.Single(t=>t.Id==id),DateTime.Today);
-            mainView.UpdateView(currentGridSource);
+            MainView.UpdateView(currentGridSource);
         }
 
-        public void Recruite(int id)
+        public void Recruit(int id)
         {
             var employee = repository.FindById(id);
             employer.Recruite(employee, DateTime.Today);
             repository.Update(employee);
             employer.Recruite(currentGridSource.Single(t => t.Id == id), DateTime.Today);
-            mainView.UpdateView(currentGridSource);
+            MainView.UpdateView(currentGridSource);
         }
 
         public void SaveToXml()
@@ -102,7 +103,7 @@ namespace EmployeeAccounting.Forms
                     repository.Clear();
                     repository.AddRange(employes);
                     currentGridSource = repository.GetAll().ToList();
-                    mainView.UpdateView(currentGridSource);
+                    MainView.UpdateView(currentGridSource);
                 }
             }
         }

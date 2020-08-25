@@ -1,15 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Serialization;
+using EmployeeAccounting.Controllers;
 using EmployeeAccounting.DataBase;
 using EmployeeAccounting.DataExchange;
-using EmployeeAccounting.Forms;
 using EmployeeAccounting.Searcher;
 
-namespace EmployeeAccounting
+namespace EmployeeAccounting.Views
 {
     static class Program
     {
@@ -29,9 +26,9 @@ namespace EmployeeAccounting
             var repository = new EmployeesEfRepository("DBConnection");
             var employer = new Employer();
             var searcher = new SearcherByString();
-            var addNewEmployeeController = new AddNewEmployeeController(repository);
-            var addNewEmployeeForm = new AddNewEmployeeForm(addNewEmployeeController);
-            var mainForm = new MainForm(addNewEmployeeForm);
+            var addNewEmployeeForm = new AddNewEmployeeForm();
+            var addNewEmployeeController = new AddNewEmployeeController(addNewEmployeeForm);
+            var mainForm = new MainForm(addNewEmployeeController);
             var mainController = new MainController(mainForm,repository, employer, searcher, exporter, importer);
             Application.Run(mainForm);
 

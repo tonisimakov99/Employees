@@ -70,7 +70,6 @@ namespace EmployeeAccounting.DataBase
             }
         }
 
-
         public void AddNew(Employee employee)
         {
             using (var db = new Context<Employee>(connectionStr))

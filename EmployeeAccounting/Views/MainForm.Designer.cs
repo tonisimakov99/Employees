@@ -1,6 +1,6 @@
 ﻿using System.Windows.Forms;
 
-namespace EmployeeAccounting
+namespace EmployeeAccounting.Views
 {
     partial class MainForm
     {
@@ -28,7 +28,7 @@ namespace EmployeeAccounting
             this.EmployeesDataGrid.RowContextMenuStripNeeded += GridContextMenuCall;
 
             this.dismissToolStripMenuItem.Click += DismissMenuItemClick;
-            this.recruiteToolStripMenuItem.Click += RecruiteMenuItemClick;
+            this.recruiteToolStripMenuItem.Click += RecruitMenuItemClick;
 
             this.SaveToXMLButton.Click += SaveToXmlButtonClick;
             this.OpenFromXMLButton.Click += OpenFromXmlButtonClick;

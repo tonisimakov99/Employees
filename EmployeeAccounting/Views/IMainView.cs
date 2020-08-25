@@ -6,16 +6,16 @@ using System.Text;
 using System.Threading.Tasks;
 using EmployeeAccounting.DataBase;
 
-namespace EmployeeAccounting.Forms
+namespace EmployeeAccounting.Views
 {
-    public interface IMainView
+    public interface IMainView:IView
     {
         void UpdateView(IEnumerable<Employee> source);
 
         event Action SaveToXmlCall;
         event Action OpenFromXmlCall;
         event Action<int> DismissCall;
-        event Action<int> RecruiteCall;
+        event Action<int> RecruitCall;
         event Action<Employee> AddNewEmployeeCall;
         event Action<string> SearchInputTextChanged;
     }

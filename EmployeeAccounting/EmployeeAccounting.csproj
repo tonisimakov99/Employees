@@ -56,11 +56,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Forms\AddNewEmployeeController.cs" />
-    <Compile Include="Forms\AddNewEmployeeForm.cs">
+    <Compile Include="Controllers\AddNewEmployeeController.cs" />
+    <Compile Include="Views\AddNewEmployeeForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\AddNewEmployeeForm.Designer.cs">
+    <Compile Include="Views\AddNewEmployeeForm.Designer.cs">
       <DependentUpon>AddNewEmployeeForm.cs</DependentUpon>
     </Compile>
     <Compile Include="DataBase\Employee.cs" />
@@ -69,26 +69,28 @@
     <Compile Include="Employer.cs" />
     <Compile Include="DataExchange\XmlExporter.cs" />
     <Compile Include="DataBase\IRepository.cs" />
-    <Compile Include="Forms\IMainView.cs" />
+    <Compile Include="Views\IAddNewEmployeeView.cs" />
+    <Compile Include="Views\IMainView.cs" />
     <Compile Include="IEmployer.cs" />
     <Compile Include="Searcher\ISearcher.cs" />
     <Compile Include="DataExchange\IExporter.cs" />
     <Compile Include="DataExchange\IImporter.cs" />
     <Compile Include="DataExchange\XmlImporter.cs" />
-    <Compile Include="Forms\MainForm.cs">
+    <Compile Include="Views\IView.cs" />
+    <Compile Include="Views\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\MainForm.Designer.cs">
+    <Compile Include="Views\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\MainController.cs" />
+    <Compile Include="Controllers\MainController.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Searcher\SearcherByString.cs" />
-    <EmbeddedResource Include="Forms\AddNewEmployeeForm.resx">
+    <EmbeddedResource Include="Views\AddNewEmployeeForm.resx">
       <DependentUpon>AddNewEmployeeForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\MainForm.resx">
+    <EmbeddedResource Include="Views\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">

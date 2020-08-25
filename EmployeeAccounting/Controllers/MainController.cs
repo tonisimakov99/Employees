@@ -5,10 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using EmployeeAccounting.DataBase;
-using EmployeeAccounting.DataExchange;
-using EmployeeAccounting.Searcher;
 using EmployeeAccounting.Views;
+using EmployeeService.DataBase;
+using EmployeeService.DataExchange;
+using EmployeeService.Employer;
+using EmployeeService.Searcher;
 
 namespace EmployeeAccounting.Controllers
 {
@@ -22,8 +23,14 @@ namespace EmployeeAccounting.Controllers
         private IList<Employee> currentGridSource;
         private readonly AddNewEmployeeController addNewEmployeeController;
         public IMainView MainView { get; private set; }
-        public MainController(AddNewEmployeeController addNewEmployeeController, IMainView mainView, IRepository<Employee> repository, IEmployer employer,
-            ISearcher<Employee> searcher, IExporter<Employee> exporter, IImporter<Employee> importer)
+        public MainController(
+            AddNewEmployeeController addNewEmployeeController,
+            IMainView mainView, 
+            IRepository<Employee> repository,
+            IEmployer employer,
+            ISearcher<Employee> searcher,
+            IExporter<Employee> exporter, 
+            IImporter<Employee> importer)
         {
             this.MainView = mainView;
             this.repository = repository;
@@ -74,42 +81,41 @@ namespace EmployeeAccounting.Controllers
 
         public void Dismiss(int id)
         {
-            var employee = repository.FindById(id);
+            var employee = currentGridSource.Single(t=>t.Id==id);
             employer.Dismiss(employee, DateTime.Today);
             repository.Update(employee);
-            employer.Dismiss(currentGridSource.Single(t=>t.Id==id),DateTime.Today);
             MainView.UpdateView(currentGridSource);
         }
 
         public void Recruit(int id)
         {
             var employee = repository.FindById(id);
-            employer.Recruite(employee, DateTime.Today);
+            employer.Recruit(employee, DateTime.Today);
             repository.Update(employee);
-            employer.Recruite(currentGridSource.Single(t => t.Id == id), DateTime.Today);
+            employer.Recruit(currentGridSource.Single(t => t.Id == id), DateTime.Today);
             MainView.UpdateView(currentGridSource);
         }
 
         public void SaveToXml()
         {
-            using (var saveForm = new SaveForm(exporter.FileFilter))
+            using (var saveForm = new SaveForm())
             {
                 if (saveForm.ShowDialog() == DialogResult.Cancel) return;
-                using (var file = saveForm.OpenFile())
+                using (var fileStream = saveForm.OpenFile())
                 {
-                    exporter.Export(repository.GetAll(), file);
+                    exporter.Export(repository.GetAll(), fileStream);
                 }
             }
         }
 
         public void OpenFromXml()
         {
-            using (var openForm = new OpenForm(importer.FileFilter))
+            using (var openForm = new OpenForm())
             {
                 if (openForm.ShowDialog() == DialogResult.Cancel) return;
-                using (var file = openForm.OpenFile())
+                using (var fileStream = openForm.OpenFile())
                 {
-                    var employes = importer.Import(file);
+                    var employes = importer.Import(fileStream);
                     repository.Clear();
                     repository.AddRange(employes);
                     currentGridSource = repository.GetAll().ToList();

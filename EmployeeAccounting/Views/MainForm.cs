@@ -5,8 +5,8 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using EmployeeAccounting.Controllers;
-using EmployeeAccounting.DataBase;
 using EmployeeAccounting.Views;
+using EmployeeService.DataBase;
 
 namespace EmployeeAccounting.Views
 {
@@ -28,11 +28,12 @@ namespace EmployeeAccounting.Views
         }
         public void UpdateView(IEnumerable<Employee> source)
         {
-            this.EmployeesDataGrid.DataSource = source.ToList();
-            UpdateStats(source);
+            var sourceArray = source.ToArray();
+            this.EmployeesDataGrid.DataSource = sourceArray.ToList();
+            UpdateStats(sourceArray);
         }
 
-        private void UpdateStats(IEnumerable<Employee> source)
+        private void UpdateStats(Employee[] source)
         {
             this.TotalLabel.Text = source.Count().ToString();
             this.CurrentLabel.Text = source.Count(t => t.DismissalDate == null).ToString();

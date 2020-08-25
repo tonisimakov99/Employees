@@ -24,7 +24,6 @@ namespace EmployeeAccounting.Views
 
         private void CustomInitializeComponent()
         {
-            //this.EmployeesDataGrid.DataSource = Controller.CurrentGridSource;
             this.EmployeesDataGrid.RowContextMenuStripNeeded += GridContextMenuCall;
 
             this.dismissToolStripMenuItem.Click += DismissMenuItemClick;

@@ -11,10 +11,9 @@ namespace EmployeeAccounting.Views
     class SaveForm : ISaveOpenView
     {
         private readonly SaveFileDialog saveFileDialog;
-        public SaveForm(string filter)
+        public SaveForm()
         {
-            saveFileDialog = new SaveFileDialog {Filter = filter};
-
+            saveFileDialog = new SaveFileDialog();
         }
         public DialogResult ShowDialog()
         {

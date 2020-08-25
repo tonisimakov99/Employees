@@ -11,9 +11,9 @@ namespace EmployeeAccounting.Views
     class OpenForm:ISaveOpenView
     {
         private readonly OpenFileDialog openFileDialog;
-        public OpenForm(string filter)
+        public OpenForm()
         {
-            openFileDialog = new OpenFileDialog { Filter = filter };
+            openFileDialog = new OpenFileDialog();
         }
         public DialogResult ShowDialog()
         {

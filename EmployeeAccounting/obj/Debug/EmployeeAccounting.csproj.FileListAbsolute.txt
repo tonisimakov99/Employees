@@ -1,0 +1,15 @@
+C:\Users\tonis\source\repos\EmployeeAccounting\EmployeeAccounting\obj\Debug\EmployeeAccounting.csprojAssemblyReference.cache
+C:\Users\tonis\source\repos\EmployeeAccounting\EmployeeAccounting\obj\Debug\EmployeeAccounting.AddNewEmployeeForm.resources
+C:\Users\tonis\source\repos\EmployeeAccounting\EmployeeAccounting\obj\Debug\EmployeeAccounting.MainForm.resources
+C:\Users\tonis\source\repos\EmployeeAccounting\EmployeeAccounting\obj\Debug\EmployeeAccounting.csproj.GenerateResource.cache
+C:\Users\tonis\source\repos\EmployeeAccounting\EmployeeAccounting\obj\Debug\EmployeeAccounting.Properties.Resources.resources
+C:\Users\tonis\source\repos\EmployeeAccounting\EmployeeAccounting\bin\Debug\EmployeeAccounting.exe.config
+C:\Users\tonis\source\repos\EmployeeAccounting\EmployeeAccounting\bin\Debug\EmployeeAccounting.exe
+C:\Users\tonis\source\repos\EmployeeAccounting\EmployeeAccounting\bin\Debug\EmployeeAccounting.pdb
+C:\Users\tonis\source\repos\EmployeeAccounting\EmployeeAccounting\bin\Debug\EntityFramework.dll
+C:\Users\tonis\source\repos\EmployeeAccounting\EmployeeAccounting\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\tonis\source\repos\EmployeeAccounting\EmployeeAccounting\bin\Debug\EntityFramework.xml
+C:\Users\tonis\source\repos\EmployeeAccounting\EmployeeAccounting\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\tonis\source\repos\EmployeeAccounting\EmployeeAccounting\obj\Debug\EmployeeAccounting.csproj.CopyComplete
+C:\Users\tonis\source\repos\EmployeeAccounting\EmployeeAccounting\obj\Debug\EmployeeAccounting.exe
+C:\Users\tonis\source\repos\EmployeeAccounting\EmployeeAccounting\obj\Debug\EmployeeAccounting.pdb

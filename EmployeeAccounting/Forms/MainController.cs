@@ -13,13 +13,13 @@ namespace EmployeeAccounting.Forms
 {
     public class MainController
     {
-        private IEmployer employer;
-        private IRepository<Employee> repository;
-        private ISearcher<Employee> searcher;
-        private IExporter<Employee> exporter;
-        private IImporter<Employee> importer;
-        private IMainView mainView;
-        private IList<Employee> currentGridSource { get; set; }
+        private readonly IEmployer employer;
+        private readonly IRepository<Employee> repository;
+        private readonly ISearcher<Employee> searcher;
+        private readonly IExporter<Employee> exporter;
+        private readonly IImporter<Employee> importer;
+        private readonly IMainView mainView;
+        private IList<Employee> currentGridSource;
         public MainController(IMainView mainView, IRepository<Employee> repository, IEmployer employer,
             ISearcher<Employee> searcher, IExporter<Employee> exporter, IImporter<Employee> importer)
         {
@@ -82,12 +82,10 @@ namespace EmployeeAccounting.Forms
             using (var saveFileDialog = new SaveFileDialog())
             {
                 saveFileDialog.Filter = exporter.FileFilter;
-                if (saveFileDialog.ShowDialog() != DialogResult.Cancel)
+                if (saveFileDialog.ShowDialog() == DialogResult.Cancel) return;
+                using (var file = saveFileDialog.OpenFile())
                 {
-                    using (var file = saveFileDialog.OpenFile())
-                    {
-                        exporter.Export(repository.GetAll(), file);
-                    }
+                    exporter.Export(repository.GetAll(), file);
                 }
             }
         }
@@ -96,17 +94,15 @@ namespace EmployeeAccounting.Forms
         {
             using (var openFileDialog = new OpenFileDialog())
             {
-                openFileDialog.Filter = "";
-                if (openFileDialog.ShowDialog() != DialogResult.Cancel)
+                openFileDialog.Filter = importer.FileFilter;
+                if (openFileDialog.ShowDialog() == DialogResult.Cancel) return;
+                using (var file = openFileDialog.OpenFile())
                 {
-                    using (var file = openFileDialog.OpenFile())
-                    {
-                        var employes = importer.Import(file);
-                        repository.Clear();
-                        repository.AddRange(employes);
-                        currentGridSource = repository.GetAll().ToList();
-                        mainView.UpdateView(currentGridSource);
-                    }
+                    var employes = importer.Import(file);
+                    repository.Clear();
+                    repository.AddRange(employes);
+                    currentGridSource = repository.GetAll().ToList();
+                    mainView.UpdateView(currentGridSource);
                 }
             }
         }

@@ -12,12 +12,12 @@ namespace EmployeeAccounting.DataExchange
     public class XmlImporter:IImporter<Employee>
     {
         private XmlSerializer serializer;
-        public XmlImporter(XmlSerializer serializer)
+        public string FileFilter { get; }
+        public XmlImporter(XmlSerializer serializer, string fileFilter)
         {
             this.serializer = serializer;
+            FileFilter = fileFilter;
         }
-
-        public string FileFilter { get; set; }
 
         public IEnumerable<Employee> Import(Stream file)
         {

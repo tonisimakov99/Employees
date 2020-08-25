@@ -20,8 +20,8 @@ namespace EmployeeAccounting
         static void Main()
         {
             var serializer = new XmlSerializer(typeof(DataBase.Employee[]));
-            var exporter = new XmlExporter(serializer);
-            var importer = new XmlImporter(serializer);
+            var exporter = new XmlExporter(serializer, "Xml files (*.xml)");
+            var importer = new XmlImporter(serializer, "Xml files (*.xml)");
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

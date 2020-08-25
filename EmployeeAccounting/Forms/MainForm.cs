@@ -57,12 +57,10 @@ namespace EmployeeAccounting
 
         private void SaveToXmlButtonClick(object sender, System.EventArgs e)
         {
-            using (var saveFileDialog = new SaveFileDialog())
-            {
-                SaveToXmlCall?.Invoke();
-            }
+            SaveToXmlCall?.Invoke();
+        }
 
-            private void DismissMenuItemClick(object sender, EventArgs e)
+        private void DismissMenuItemClick(object sender, EventArgs e)
         {
             DismissCall?.Invoke((int)EmployeesDataGrid[0,selectedRow].Value);
             this.EmployeesDataGrid.FirstDisplayedScrollingRowIndex = selectedRow;

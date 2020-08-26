@@ -1,29 +1,20 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using EmployeeService.DataBase;
+using JetBrains.Annotations;
 
 namespace EmployeeService.Searcher
 {
-    public class SearcherByString:ISearcher<Employee>
-    { 
-        public IEnumerable<Employee> Search(IRepository<Employee> repository, string[] request)
+    public class SearcherByString : IEmployeeSearcher
+    {
+        [NotNull, ItemNotNull]
+        public IEnumerable<Employee> Search([NotNull, ItemNotNull] IEnumerable<Employee> employees, [NotNull, ItemNotNull] string[] request)
         {
-            var result = new List<Employee>();
-            var all = repository.GetAll();
-            foreach (var employee in all)
-            {
-                foreach (var str in request)
-                {
-                    if (employee.Name.ToLower().Contains(str.ToLower()) || 
-                        employee.SurName.ToLower().Contains(str.ToLower()) || 
-                        employee.MiddleName.ToLower().Contains(str.ToLower()))
-                    {
-                        result.Add(employee);
-                        break;
-                    }
-                }
-            }
-
-            return result;
+            return employees.Where(employee =>
+                request.Any(str =>
+                    employee.Name.ToLower().Contains(str.ToLower()) ||
+                    employee.Surname.ToLower().Contains(str.ToLower()) ||
+                    employee.MiddleName.ToLower().Contains(str.ToLower()))).ToList();
         }
     }
 }

@@ -1,18 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 
 namespace EmployeeService.DataBase
 {
-    public interface IRepository<T> where T:class
+    public interface IEmployeeRepository
     {
-        int Count { get; }
-        T FindById(int id);
-        IEnumerable<T> GetAll();
-        IEnumerable<T> GetAll(Func<T, bool> predicate);
-        void Remove(T item);
-        void Update(T item);
-        void AddNew(T item);
-        void AddRange(IEnumerable<T> items);
+        event Action<IList<Employee>> OnEmployeesChanged;
+        [CanBeNull] 
+        Employee FindById(int id);
+        Employee[] GetAll();
+        void Remove(int id);
+        void Update([NotNull] Employee employee);
+        void AddNew([NotNull] Employee employee);
+        void AddRange([NotNull,ItemNotNull] IEnumerable<Employee> employees);
         void Clear();
     }
 

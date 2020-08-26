@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
+using JetBrains.Annotations;
 
 namespace EmployeeService.DataExchange
 {
-    public interface IExporter<T> where T:class
+    public interface IExporter<in TItem>
     {
-        void Export(IEnumerable<T> employees, Stream file);
+        void Export([NotNull] TItem item, [NotNull] Stream stream);
     }
 }

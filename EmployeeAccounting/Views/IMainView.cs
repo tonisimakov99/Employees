@@ -4,19 +4,16 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using EmployeeAccounting.Controllers;
 using EmployeeService.DataBase;
+using JetBrains.Annotations;
 
 namespace EmployeeAccounting.Views
 {
     public interface IMainView
     {
-        void UpdateView(IEnumerable<Employee> source);
-
-        event Action SaveToXmlCall;
-        event Action OpenFromXmlCall;
-        event Action<int> DismissCall;
-        event Action<int> RecruitCall;
-        event Action AddNewEmployeeCall;
-        event Action<string> SearchInputTextChanged;
+        [NotNull] IMainController Controller { get; }
+        [NotNull] IEmployeeRepository Model { get; }
+  
     }
 }

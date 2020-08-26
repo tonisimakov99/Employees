@@ -1,127 +1,74 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using EmployeeAccounting.Views;
+using System.Windows.Forms.VisualStyles;
 using EmployeeService.DataBase;
 using EmployeeService.DataExchange;
 using EmployeeService.Employer;
 using EmployeeService.Searcher;
+using JetBrains.Annotations;
 
 namespace EmployeeAccounting.Controllers
 {
-    public class MainController
+    public class MainController : IMainController
     {
-        private readonly IEmployer employer;
-        private readonly IRepository<Employee> repository;
-        private readonly ISearcher<Employee> searcher;
-        private readonly IExporter<Employee> exporter;
-        private readonly IImporter<Employee> importer;
-        private IList<Employee> currentGridSource;
-        private readonly AddNewEmployeeController addNewEmployeeController;
-        public IMainView MainView { get; private set; }
+        private readonly IEmployeeManager employeeManager;
+        private readonly IEmployeeSearcher searcher;
+        private readonly IEmployeeRepository repository;
+        private readonly ExporterFactory exporterFactory;
+        private readonly ImporterFactory importerFactory;
+
         public MainController(
-            AddNewEmployeeController addNewEmployeeController,
-            IMainView mainView, 
-            IRepository<Employee> repository,
-            IEmployer employer,
-            ISearcher<Employee> searcher,
-            IExporter<Employee> exporter, 
-            IImporter<Employee> importer)
+            IEmployeeRepository repository,
+            IEmployeeManager employeeManager,
+            IEmployeeSearcher searcher,
+            ExporterFactory exporterFactory,
+            ImporterFactory importerFactory)
         {
-            this.MainView = mainView;
             this.repository = repository;
-            this.employer = employer;
+            this.employeeManager = employeeManager;
             this.searcher = searcher;
-            this.exporter = exporter;
-            this.importer = importer;
-            this.addNewEmployeeController = addNewEmployeeController;
-            SubscribeToView();
-            currentGridSource = repository.GetAll().ToList();
-            mainView.UpdateView(currentGridSource);
+            this.exporterFactory = exporterFactory;
+            this.importerFactory = importerFactory;
         }
 
-        private void SubscribeToView()
+        public void AddNewEmployee([NotNull] Employee employee)
         {
-            MainView.OpenFromXmlCall += OpenFromXml;
-            MainView.SaveToXmlCall += SaveToXml;
-            MainView.AddNewEmployeeCall += AddNewEmployee;
-            MainView.RecruitCall += Recruit;
-            MainView.DismissCall += Dismiss;
-            MainView.SearchInputTextChanged += Search;
-        }
-
-        public void AddNewEmployee()
-        {
-            if (addNewEmployeeController.addNewEmployeeView.ShowDialog() == DialogResult.Cancel) return;
-            var employee = new Employee()
-            {
-                Name = addNewEmployeeController.Name,
-                SurName = addNewEmployeeController.Surname,
-                MiddleName = addNewEmployeeController.MiddleName,
-                Position = addNewEmployeeController.Position,
-                Salary = addNewEmployeeController.Salary,
-                EmploymentDate = DateTime.Now
-            };
             repository.AddNew(employee);
-            currentGridSource.Add(employee);
-            MainView.UpdateView(currentGridSource);
         }
-        
-        public void Search(string str)
+
+        [NotNull]
+        [ItemNotNull]
+        public IEnumerable<Employee> Search([NotNull] string str)
         {
             var keyWords = str.Trim().Split(' ');
-            var result = searcher.Search(repository, keyWords);
-            currentGridSource = result.ToList();
-            MainView.UpdateView(currentGridSource);
+            return searcher.Search(repository.GetAll(), keyWords);
         }
 
         public void Dismiss(int id)
         {
-            var employee = currentGridSource.Single(t=>t.Id==id);
-            employer.Dismiss(employee, DateTime.Today);
+            var employee = repository.FindById(id) ?? throw new Exception("Bug, employee not found");
+            employeeManager.Dismiss(employee, DateTime.Today);
             repository.Update(employee);
-            MainView.UpdateView(currentGridSource);
         }
 
         public void Recruit(int id)
         {
-            var employee = repository.FindById(id);
-            employer.Recruit(employee, DateTime.Today);
+            var employee = repository.FindById(id) ?? throw new Exception("Bug, employee not found");
+            employeeManager.Recruit(employee, DateTime.Today);
             repository.Update(employee);
-            employer.Recruit(currentGridSource.Single(t => t.Id == id), DateTime.Today);
-            MainView.UpdateView(currentGridSource);
         }
 
-        public void SaveToXml()
+        public void ExportToXml([NotNull] Stream fileStream)
         {
-            using (var saveForm = new SaveForm())
-            {
-                if (saveForm.ShowDialog() == DialogResult.Cancel) return;
-                using (var fileStream = saveForm.OpenFile())
-                {
-                    exporter.Export(repository.GetAll(), fileStream);
-                }
-            }
+            exporterFactory.CreateXmlExporter<Employee[]>().Export(repository.GetAll(), fileStream);
         }
 
-        public void OpenFromXml()
+        public void ImportFromXml([NotNull] Stream fileStream)
         {
-            using (var openForm = new OpenForm())
-            {
-                if (openForm.ShowDialog() == DialogResult.Cancel) return;
-                using (var fileStream = openForm.OpenFile())
-                {
-                    var employes = importer.Import(fileStream);
-                    repository.Clear();
-                    repository.AddRange(employes);
-                    currentGridSource = repository.GetAll().ToList();
-                    MainView.UpdateView(currentGridSource);
-                }
-            }
+            var employes = importerFactory.CreateXmlExporter<Employee[]>().Import(fileStream);
+            repository.Clear();
+            repository.AddRange(employes);
         }
     }
 }

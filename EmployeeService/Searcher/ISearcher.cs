@@ -1,10 +1,13 @@
 ﻿using System.Collections.Generic;
 using EmployeeService.DataBase;
+using JetBrains.Annotations;
 
 namespace EmployeeService.Searcher
 {
-    public interface ISearcher<T> where T : class
+    public interface IEmployeeSearcher
     {
-        IEnumerable<T> Search(IRepository<T> repository, params string[] request);
+        
+        [NotNull,ItemNotNull] 
+        IEnumerable<Employee> Search([NotNull, ItemNotNull] IEnumerable<Employee> employees, [NotNull, ItemNotNull] params string[] request);
     }
 }

@@ -8,3 +8,5 @@ C:\Users\tonis\source\repos\EmployeeAccounting\EmployeeService\obj\Debug\Employe
 C:\Users\tonis\source\repos\EmployeeAccounting\EmployeeService\obj\Debug\EmployeeService.csproj.CopyComplete
 C:\Users\tonis\source\repos\EmployeeAccounting\EmployeeService\obj\Debug\EmployeeService.dll
 C:\Users\tonis\source\repos\EmployeeAccounting\EmployeeService\obj\Debug\EmployeeService.pdb
+C:\Users\tonis\source\repos\EmployeeAccounting\EmployeeService\bin\Debug\JetBrains.Annotations.dll
+C:\Users\tonis\source\repos\EmployeeAccounting\EmployeeService\bin\Debug\JetBrains.Annotations.xml

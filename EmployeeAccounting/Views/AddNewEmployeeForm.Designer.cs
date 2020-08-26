@@ -49,7 +49,7 @@ namespace EmployeeAccounting.Views
             this.NameInput.Location = new System.Drawing.Point(102, 42);
             this.NameInput.Name = "NameInput";
             this.NameInput.Size = new System.Drawing.Size(200, 20);
-            this.NameInput.TabIndex = 0;
+            this.NameInput.TabIndex = 1;
             this.NameInput.TextChanged += new System.EventHandler(this.NameChanged);
             // 
             // NameLabel
@@ -75,7 +75,7 @@ namespace EmployeeAccounting.Views
             this.SurnameInput.Location = new System.Drawing.Point(101, 12);
             this.SurnameInput.Name = "SurnameInput";
             this.SurnameInput.Size = new System.Drawing.Size(200, 20);
-            this.SurnameInput.TabIndex = 2;
+            this.SurnameInput.TabIndex = 0;
             this.SurnameInput.TextChanged += new System.EventHandler(this.SurnameChanged);
             // 
             // MiddleNameLabel
@@ -92,7 +92,7 @@ namespace EmployeeAccounting.Views
             this.MiddleNameInput.Location = new System.Drawing.Point(102, 71);
             this.MiddleNameInput.Name = "MiddleNameInput";
             this.MiddleNameInput.Size = new System.Drawing.Size(200, 20);
-            this.MiddleNameInput.TabIndex = 4;
+            this.MiddleNameInput.TabIndex = 2;
             this.MiddleNameInput.TextChanged += new System.EventHandler(this.MiddleNameChanged);
             // 
             // PositionLabel
@@ -109,7 +109,7 @@ namespace EmployeeAccounting.Views
             this.PositionInput.Location = new System.Drawing.Point(101, 100);
             this.PositionInput.Name = "PositionInput";
             this.PositionInput.Size = new System.Drawing.Size(200, 20);
-            this.PositionInput.TabIndex = 6;
+            this.PositionInput.TabIndex = 3;
             this.PositionInput.TextChanged += new System.EventHandler(this.PositionChanged);
             // 
             // Add
@@ -140,10 +140,14 @@ namespace EmployeeAccounting.Views
             0,
             0});
             this.SalaryNumericUpDown.Location = new System.Drawing.Point(102, 130);
-            this.SalaryNumericUpDown.Maximum = decimal.MaxValue;
+            this.SalaryNumericUpDown.Maximum = new decimal(new int[] {
+            -1,
+            -1,
+            -1,
+            0});
             this.SalaryNumericUpDown.Name = "SalaryNumericUpDown";
             this.SalaryNumericUpDown.Size = new System.Drawing.Size(200, 20);
-            this.SalaryNumericUpDown.TabIndex = 15;
+            this.SalaryNumericUpDown.TabIndex = 4;
             this.SalaryNumericUpDown.ValueChanged += new System.EventHandler(this.SalaryNumericUpDownValueChanged);
             // 
             // AddNewEmployeeForm

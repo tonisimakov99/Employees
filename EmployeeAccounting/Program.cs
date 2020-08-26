@@ -19,35 +19,18 @@ namespace EmployeeAccounting
         [STAThread]
         static void Main()
         {
-            
-            var container = new Container(new ContainerConfiguration(typeof(Employee).Assembly));
+            var container = new Container(new ContainerConfiguration(typeof(Employee).Assembly, typeof(MainForm).Assembly));
             ConfigureContainer(container);
 
-            //var exporter = new XmlExporter();
-            //var importer = new XmlImporter();
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-
-            //var repository = new EmployeesEfRepository("DBConnection");
-            //var employer = new Employer();
-            //var searcher = new SearcherByString();
-            //var addNewEmployeeForm = new AddNewEmployeeForm();
-            //var addNewEmployeeController = new AddNewEmployeeController(addNewEmployeeForm);
-            //var mainForm = new MainForm();
-            //var mainController = new MainController(addNewEmployeeController, mainForm, repository, employer, searcher,
-            //    exporter, importer);
-
-            var mainController = container.Get<MainController>();
-            var mainForm = container.Get<MainForm>();
-            Application.Run(mainForm);
+            Application.Run(container.Get<MainForm>());
         }
 
         private static void ConfigureContainer(IContainer container)
         {
-            container.Configurator.ForAbstraction<IAddNewEmployeeView>().UseType<AddNewEmployeeForm>();
-            container.Configurator.ForAbstraction<IMainView>().UseType<MainForm>();
-            container.Configurator.ForAbstraction<IRepository<Employee>>().UseInstances(new EmployeesEfRepository("DBConnection"));
+            container.Configurator.ForAbstraction<ContextFactory>().UseInstances(new ContextFactory("DbConnection"));
         }
     }
 }

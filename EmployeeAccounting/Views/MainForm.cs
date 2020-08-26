@@ -13,19 +13,18 @@ namespace EmployeeAccounting.Views
     public partial class MainForm : Form, IMainView
     {
         private int selectedRow;
-        
-        public event Action SaveToXmlCall;
-        public event Action OpenFromXmlCall;
-        public event Action<int> DismissCall;
-        public event Action<int> RecruitCall;
-        public event Action AddNewEmployeeCall;
-        public event Action<string> SearchInputTextChanged;
-        
-        public MainForm()
+        public IMainController Controller { get; }
+        public IEmployeeRepository Model { get; }
+        public MainForm(IMainController controller, IEmployeeRepository model)
         {
+            Controller = controller;
+            Model = model;
             InitializeComponent();
             CustomInitializeComponent();
+            Model.OnEmployeesChanged += UpdateView;
+            this.EmployeesDataGrid.DataSource = model.GetAll();
         }
+
         public void UpdateView(IEnumerable<Employee> source)
         {
             var sourceArray = source.ToArray();
@@ -35,6 +34,7 @@ namespace EmployeeAccounting.Views
 
         private void UpdateStats(Employee[] source)
         {
+            if (source.Length == 0) return;
             this.TotalLabel.Text = source.Count().ToString();
             this.CurrentLabel.Text = source.Count(t => t.DismissalDate == null).ToString();
             this.DismissedLabel.Text = source.Count(t => t.DismissalDate != null).ToString();
@@ -45,7 +45,7 @@ namespace EmployeeAccounting.Views
 
         private void SearchInputStrTextChanged(object sender, System.EventArgs e)
         {
-            SearchInputTextChanged?.Invoke(SearchInputStr.Text);
+            UpdateView(Controller.Search(SearchInputStr.Text));
         }
 
         private void GridContextMenuCall(object sender, DataGridViewRowContextMenuStripNeededEventArgs e)
@@ -55,28 +55,53 @@ namespace EmployeeAccounting.Views
 
         private void OpenFromXmlButtonClick(object sender, System.EventArgs e)
         {
-            OpenFromXmlCall?.Invoke();
+            using (var openForm = new OpenFileDialog())
+            {
+                if (openForm.ShowDialog() == DialogResult.Cancel) return;
+                using (var fileStream = openForm.OpenFile())
+                {
+                    Controller.ImportFromXml(fileStream);
+                }
+            }
         }
 
         private void SaveToXmlButtonClick(object sender, System.EventArgs e)
         {
-            SaveToXmlCall?.Invoke();
+            using (var saveForm = new SaveFileDialog())
+            {
+                if (saveForm.ShowDialog() == DialogResult.Cancel) return;
+                using (var fileStream = saveForm.OpenFile())
+                {
+                    Controller.ExportToXml(fileStream);
+                }
+            }
         }
 
         private void DismissMenuItemClick(object sender, EventArgs e)
         {
-            DismissCall?.Invoke((int)EmployeesDataGrid[0,selectedRow].Value);
+            Controller.Dismiss((int)EmployeesDataGrid[0, selectedRow].Value);
             this.EmployeesDataGrid.FirstDisplayedScrollingRowIndex = selectedRow;
         }
         private void RecruitMenuItemClick(object sender, EventArgs e)
         {
-            RecruitCall?.Invoke((int)EmployeesDataGrid[0, selectedRow].Value);
+            Controller.Recruit((int)EmployeesDataGrid[0, selectedRow].Value);
             this.EmployeesDataGrid.FirstDisplayedScrollingRowIndex = selectedRow;
         }
 
         private void AddNewEmployeeButtonClick(object sender, EventArgs e)
         {
-            AddNewEmployeeCall?.Invoke();
+            var addNewEmployeeView = new AddNewEmployeeForm(new AddNewEmployeeController());
+            if (addNewEmployeeView.ShowDialog() == DialogResult.Cancel) return;
+            var employee = new Employee()
+            {
+                Name = addNewEmployeeView.Controller.Name,
+                Surname = addNewEmployeeView.Controller.Surname,
+                MiddleName = addNewEmployeeView.Controller.MiddleName,
+                Position = addNewEmployeeView.Controller.Position,
+                Salary = addNewEmployeeView.Controller.Salary,
+                EmploymentDate = DateTime.Now
+            };
+            Controller.AddNewEmployee(employee);
         }
     }
 }

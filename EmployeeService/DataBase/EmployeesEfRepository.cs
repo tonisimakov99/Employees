@@ -2,95 +2,89 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using JetBrains.Annotations;
 
 namespace EmployeeService.DataBase
 {
-    public class EmployeesEfRepository : IRepository<Employee>
+    public class EmployeesEfRepository : IEmployeeRepository
     {
-        private readonly string connectionStr;
+        private readonly ContextFactory contextFactory;
 
-        public EmployeesEfRepository(string connectionStr)
+        public EmployeesEfRepository(ContextFactory contextFactory)
         {
-            this.connectionStr = connectionStr;
+            this.contextFactory = contextFactory;
         }
 
-        public int Count
-        {
-            get
-            {
-                using (var db = new Context(connectionStr))
-                {
-                    return db.Employees.Count();
-                }
-            }
-        }
+        public event Action<IList<Employee>> OnEmployeesChanged;
 
+        [CanBeNull]
         public Employee FindById(int id)
         {
-            using (var db = new Context(connectionStr))
+            using (var dbContext = contextFactory.CreateContext())
             {
-                return db.Employees.Find(id);
+                return dbContext.Employees.Find(id);
             }
         }
 
-        public IEnumerable<Employee> GetAll()
+        [NotNull]
+        [ItemNotNull]
+        public Employee[] GetAll()
         {
-            using (var db = new Context(connectionStr))
+            using (var dbContext = contextFactory.CreateContext())
             {
-                return db.Employees.AsNoTracking().ToList();
+                return dbContext.Employees.AsNoTracking().ToArray();
             }
         }
 
-        public IEnumerable<Employee> GetAll(Func<Employee, bool> predicate)
+        public void Remove(int id)
         {
-            using (var db = new Context(connectionStr))
+            using (var dbContext = contextFactory.CreateContext())
             {
-                return db.Employees.AsNoTracking().Where(predicate).ToList();
+                var item = FindById(id);
+                if (item == null) return;
+                dbContext.Employees.Remove(item);
+                dbContext.SaveChanges();
+                OnEmployeesChanged?.Invoke(dbContext.Employees.ToList());
             }
         }
 
-        public void Remove(Employee item)
+        public void Update([NotNull] Employee item)
         {
-            using (var db = new Context(connectionStr))
+            using (var dbContext = contextFactory.CreateContext())
             {
-                db.Employees.Remove(item);
-                db.SaveChanges();
+                dbContext.Entry(item).State = EntityState.Modified;
+                dbContext.SaveChanges();
+                OnEmployeesChanged?.Invoke(dbContext.Employees.ToList());
             }
         }
 
-        public void Update(Employee item)
+        public void AddNew([NotNull] Employee employee)
         {
-            using (var db = new Context(connectionStr))
+            using (var dbContext = contextFactory.CreateContext())
             {
-                db.Entry(item).State = EntityState.Modified;
-                db.SaveChanges();
+                dbContext.Employees.Add(employee);
+                dbContext.SaveChanges();
+                OnEmployeesChanged?.Invoke(dbContext.Employees.ToList());
             }
         }
 
-        public void AddNew(Employee employee)
+        public void AddRange([NotNull] [ItemNotNull] IEnumerable<Employee> employees)
         {
-            using (var db = new Context(connectionStr))
+            using (var dbContext = contextFactory.CreateContext())
             {
-                db.Employees.Add(employee);
-                db.SaveChanges();
-            }
-        }
-
-        public void AddRange(IEnumerable<Employee> employees)
-        {
-            using (var db = new Context(connectionStr))
-            {
-                db.Employees.AddRange(employees);
-                db.SaveChanges();
+                dbContext.Employees.AddRange(employees);
+                dbContext.SaveChanges();
+                OnEmployeesChanged?.Invoke(dbContext.Employees.ToList());
             }
         }
 
         public void Clear()
         {
-            using (var db = new Context(connectionStr))
+            using (var dbContext = contextFactory.CreateContext())
             {
-                db.Employees.RemoveRange(db.Employees);
-                db.SaveChanges();
+                dbContext.Employees.RemoveRange(dbContext.Employees);
+                dbContext.SaveChanges();
+                OnEmployeesChanged?.Invoke(dbContext.Employees.ToList());
             }
         }
     }

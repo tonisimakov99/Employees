@@ -20,3 +20,5 @@ C:\Users\tonis\source\repos\EmployeeAccounting\EmployeeAccounting\bin\Debug\GrEm
 C:\Users\tonis\source\repos\EmployeeAccounting\EmployeeAccounting\bin\Debug\GroboContainer.pdb
 C:\Users\tonis\source\repos\EmployeeAccounting\EmployeeAccounting\bin\Debug\EntityFramework.SqlServer.dll
 C:\Users\tonis\source\repos\EmployeeAccounting\EmployeeAccounting\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\tonis\source\repos\EmployeeAccounting\EmployeeAccounting\bin\Debug\JetBrains.Annotations.dll
+C:\Users\tonis\source\repos\EmployeeAccounting\EmployeeAccounting\bin\Debug\JetBrains.Annotations.xml

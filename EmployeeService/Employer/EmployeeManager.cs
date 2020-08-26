@@ -1,18 +1,21 @@
 ﻿using System;
 using EmployeeService.DataBase;
+using JetBrains.Annotations;
 
 namespace EmployeeService.Employer
 {
-    public class Employer : IEmployer
+    public class EmployeeManager : IEmployeeManager
     {
-        public Employee Recruit(Employee employee, DateTime date)
+        [NotNull]
+        public Employee Recruit([NotNull] Employee employee, DateTime date)
         {
             employee.EmploymentDate = date;
             employee.DismissalDate = null;
             return employee;
         }
 
-        public Employee Dismiss(Employee employee, DateTime date)
+        [NotNull]
+        public Employee Dismiss([NotNull] Employee employee, DateTime date)
         {
             employee.DismissalDate = date;
             return employee;

@@ -1,23 +1,23 @@
-﻿using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using System.Xml.Serialization;
 using EmployeeService.DataBase;
+using JetBrains.Annotations;
 
 namespace EmployeeService.DataExchange
 {
-    public class XmlImporter:IImporter<Employee>
+    public class XmlImporter<TItem> : IImporter<TItem>
     {
         private readonly XmlSerializer serializer;
+
         public XmlImporter()
         {
-            serializer = new XmlSerializer(typeof(Employee[]));
+            serializer = new XmlSerializer(typeof(TItem));
         }
 
-        public IEnumerable<Employee> Import(Stream file)
+        [NotNull]
+        public TItem Import([NotNull] Stream file)
         {
-            var employees = (IEnumerable<Employee>) serializer.Deserialize(file);
-
-            return employees;
+            return (TItem) serializer.Deserialize(file);
         }
     }
 }

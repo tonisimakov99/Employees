@@ -14,33 +14,30 @@ namespace EmployeeAccounting.Views
 {
     public partial class AddNewEmployeeForm : Form, IAddNewEmployeeView
     {
-        public event Action<string> OnSurnameChanged;
-        public event Action<string> OnNameChanged;
-        public event Action<string> OnMiddleNameChanged;
-        public event Action<string> OnPositionChanged;
-        public event Action<decimal> OnSalaryChanged;
-        public AddNewEmployeeForm()
+        public IAddNewEmployeeController Controller { get; }
+        public AddNewEmployeeForm(IAddNewEmployeeController controller)
         {
+            Controller = controller;
             InitializeComponent();
         }
         private void SurnameChanged(object sender, EventArgs e)
         {
-            OnSurnameChanged?.Invoke(SurnameInput.Text);
+            Controller.Surname = SurnameInput.Text;
         }
 
         private void NameChanged(object sender, EventArgs e)
         {
-            OnNameChanged?.Invoke(NameInput.Text);
+            Controller.Name = NameInput.Text;
         }
 
         private void MiddleNameChanged(object sender, EventArgs e)
         {
-            OnMiddleNameChanged?.Invoke(MiddleNameInput.Text);
+            Controller.MiddleName = MiddleNameInput.Text;
         }
 
         private void PositionChanged(object sender, EventArgs e)
         {
-            OnPositionChanged?.Invoke(PositionInput.Text);
+            Controller.Position = PositionInput.Text;
         }
 
         private void AddClick(object sender, EventArgs e)
@@ -50,8 +47,7 @@ namespace EmployeeAccounting.Views
 
         private void SalaryNumericUpDownValueChanged(object sender, EventArgs e)
         {
-            OnSalaryChanged?.Invoke(SalaryNumericUpDown.Value);
+            Controller.Salary = SalaryNumericUpDown.Value;
         }
-
     }
 }

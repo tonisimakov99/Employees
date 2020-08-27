@@ -22,9 +22,9 @@ namespace EmployeeAccounting.Views
             InitializeComponent();
             CustomInitializeComponent();
             Model.OnEmployeesChanged += UpdateView;
-            this.EmployeesDataGrid.DataSource = model.GetAll();
+            UpdateView(Model.GetAll());
+            
         }
-
         public void UpdateView(IEnumerable<Employee> source)
         {
             var sourceArray = source.ToArray();
@@ -38,9 +38,9 @@ namespace EmployeeAccounting.Views
             this.TotalLabel.Text = source.Count().ToString();
             this.CurrentLabel.Text = source.Count(t => t.DismissalDate == null).ToString();
             this.DismissedLabel.Text = source.Count(t => t.DismissalDate != null).ToString();
-            this.MaxLabel.Text = source.Max(t => t.Salary).ToString(CultureInfo.InvariantCulture);
-            this.MinLabel.Text = source.Min(t => t.Salary).ToString(CultureInfo.InvariantCulture);
-            this.AverageLabel.Text = source.Average(t => t.Salary).ToString(CultureInfo.InvariantCulture);
+            this.MaxLabel.Text = source.Max(t => t.Salary).ToString("F");
+            this.MinLabel.Text = source.Min(t => t.Salary).ToString("F");
+            this.AverageLabel.Text = source.Average(t => t.Salary).ToString("F");
         }
 
         private void SearchInputStrTextChanged(object sender, System.EventArgs e)

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using JetBrains.Annotations;
 
@@ -50,6 +51,7 @@ namespace EmployeeService.DataBase
 
         public void Update([NotNull] Employee item)
         {
+            throw new EventLogNotFoundException("tratata");
             using (var dbContext = contextFactory.CreateContext())
             {
                 dbContext.Entry(item).State = EntityState.Modified;

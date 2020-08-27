@@ -30,6 +30,7 @@ namespace EmployeeAccounting.Views
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.NameInput = new System.Windows.Forms.TextBox();
             this.NameLabel = new System.Windows.Forms.Label();
             this.SurnameLabel = new System.Windows.Forms.Label();
@@ -41,7 +42,9 @@ namespace EmployeeAccounting.Views
             this.Add = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.SalaryNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.ErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.SalaryNumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ErrorProvider)).BeginInit();
             this.SuspendLayout();
             // 
             // NameInput
@@ -51,6 +54,7 @@ namespace EmployeeAccounting.Views
             this.NameInput.Size = new System.Drawing.Size(200, 20);
             this.NameInput.TabIndex = 1;
             this.NameInput.TextChanged += new System.EventHandler(this.NameChanged);
+            this.NameInput.Validating += new System.ComponentModel.CancelEventHandler(this.NameValidating);
             // 
             // NameLabel
             // 
@@ -77,6 +81,7 @@ namespace EmployeeAccounting.Views
             this.SurnameInput.Size = new System.Drawing.Size(200, 20);
             this.SurnameInput.TabIndex = 0;
             this.SurnameInput.TextChanged += new System.EventHandler(this.SurnameChanged);
+            this.SurnameInput.Validating += new System.ComponentModel.CancelEventHandler(this.SurnameValidating);
             // 
             // MiddleNameLabel
             // 
@@ -94,6 +99,7 @@ namespace EmployeeAccounting.Views
             this.MiddleNameInput.Size = new System.Drawing.Size(200, 20);
             this.MiddleNameInput.TabIndex = 2;
             this.MiddleNameInput.TextChanged += new System.EventHandler(this.MiddleNameChanged);
+            this.MiddleNameInput.Validating += new System.ComponentModel.CancelEventHandler(this.MiddleNameValidating);
             // 
             // PositionLabel
             // 
@@ -111,10 +117,10 @@ namespace EmployeeAccounting.Views
             this.PositionInput.Size = new System.Drawing.Size(200, 20);
             this.PositionInput.TabIndex = 3;
             this.PositionInput.TextChanged += new System.EventHandler(this.PositionChanged);
+            this.PositionInput.Validating += new System.ComponentModel.CancelEventHandler(this.PositionValidating);
             // 
             // Add
             // 
-            this.Add.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.Add.Location = new System.Drawing.Point(227, 156);
             this.Add.Name = "Add";
             this.Add.Size = new System.Drawing.Size(75, 23);
@@ -149,12 +155,20 @@ namespace EmployeeAccounting.Views
             this.SalaryNumericUpDown.Size = new System.Drawing.Size(200, 20);
             this.SalaryNumericUpDown.TabIndex = 4;
             this.SalaryNumericUpDown.ValueChanged += new System.EventHandler(this.SalaryNumericUpDownValueChanged);
+            this.SalaryNumericUpDown.Validating += new System.ComponentModel.CancelEventHandler(this.SalaryNumericUpDownValidating);
+            // 
+            // ErrorProvider
+            // 
+            this.ErrorProvider.BlinkRate = 0;
+            this.ErrorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+            this.ErrorProvider.ContainerControl = this;
             // 
             // AddNewEmployeeForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(314, 191);
+            this.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
+            this.ClientSize = new System.Drawing.Size(324, 191);
             this.Controls.Add(this.SalaryNumericUpDown);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.Add);
@@ -166,12 +180,13 @@ namespace EmployeeAccounting.Views
             this.Controls.Add(this.SurnameInput);
             this.Controls.Add(this.NameLabel);
             this.Controls.Add(this.NameInput);
-            this.MaximumSize = new System.Drawing.Size(330, 230);
-            this.MinimumSize = new System.Drawing.Size(330, 230);
+            this.MaximumSize = new System.Drawing.Size(340, 230);
+            this.MinimumSize = new System.Drawing.Size(340, 230);
             this.Name = "AddNewEmployeeForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "AddNewEmployee";
             ((System.ComponentModel.ISupportInitialize)(this.SalaryNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ErrorProvider)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -190,5 +205,6 @@ namespace EmployeeAccounting.Views
         private System.Windows.Forms.Button Add;
         private Label label1;
         private NumericUpDown SalaryNumericUpDown;
+        private ErrorProvider ErrorProvider;
     }
 }

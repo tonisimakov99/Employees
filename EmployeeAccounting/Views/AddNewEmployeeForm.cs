@@ -20,6 +20,59 @@ namespace EmployeeAccounting.Views
             Controller = controller;
             InitializeComponent();
         }
+
+        private void SalaryNumericUpDownValidating(object sender, CancelEventArgs e)
+        {
+            if (this.SalaryNumericUpDown.Value == 0)
+            {
+                e.Cancel = true;
+                ErrorProvider.SetError(this.SalaryNumericUpDown, "Can't be 0");
+            }
+            else
+            {
+                e.Cancel = false;
+            }
+
+        }
+
+        private void PositionValidating(object sender, CancelEventArgs e)
+        {
+            TextValidating(this.PositionInput,e);
+        }
+
+        private void MiddleNameValidating(object sender, CancelEventArgs e)
+        {
+            TextValidating(this.MiddleNameInput,e);
+        }
+
+        private void SurnameValidating(object sender, CancelEventArgs e)
+        {
+            TextValidating(this.SurnameInput,e);
+        }
+
+        private void NameValidating(object sender, CancelEventArgs e)
+        {
+            TextValidating(this.NameInput,e);
+        }
+
+        private void TextValidating(TextBox text, CancelEventArgs e)
+        {
+            if (String.IsNullOrEmpty(text.Text))
+            {
+                e.Cancel = true;
+                ErrorProvider.SetError(text, "Can't be Empty");
+            }
+            else if (this.NameInput.Text.Any(t => !char.IsLetter(t)))
+            {
+                e.Cancel = true;
+                ErrorProvider.SetError(text, "Only letters");
+            }
+            else
+            {
+                e.Cancel = false;
+            }
+        }
+
         private void SurnameChanged(object sender, EventArgs e)
         {
             Controller.Surname = SurnameInput.Text;
@@ -42,7 +95,11 @@ namespace EmployeeAccounting.Views
 
         private void AddClick(object sender, EventArgs e)
         {
-            this.Close();
+            if (this.ValidateChildren(ValidationConstraints.Enabled))
+            {
+                this.DialogResult = DialogResult.OK;
+                this.Close();
+            }
         }
 
         private void SalaryNumericUpDownValueChanged(object sender, EventArgs e)

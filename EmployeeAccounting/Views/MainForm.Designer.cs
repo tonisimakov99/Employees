@@ -29,8 +29,8 @@ namespace EmployeeAccounting.Views
             this.dismissToolStripMenuItem.Click += DismissMenuItemClick;
             this.recruiteToolStripMenuItem.Click += RecruitMenuItemClick;
 
-            this.SaveToXMLButton.Click += SaveToXmlButtonClick;
-            this.OpenFromXMLButton.Click += OpenFromXmlButtonClick;
+            this.ExportToXmlButton.Click += SaveToXmlButtonClick;
+            this.ImportFromXmlButton.Click += OpenFromXmlButtonClick;
         }
 
 
@@ -47,11 +47,11 @@ namespace EmployeeAccounting.Views
             this.RowContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.dismissToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.recruiteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.OpenFromXMLButton = new System.Windows.Forms.Button();
+            this.ImportFromXmlButton = new System.Windows.Forms.Button();
             this.AddNewEmployeeButton = new System.Windows.Forms.Button();
             this.SearchInputStr = new System.Windows.Forms.TextBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.SaveToXMLButton = new System.Windows.Forms.Button();
+            this.ExportToXmlButton = new System.Windows.Forms.Button();
             this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.surNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -118,15 +118,15 @@ namespace EmployeeAccounting.Views
             this.recruiteToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
             this.recruiteToolStripMenuItem.Text = "Recruite";
             // 
-            // OpenFromXMLButton
+            // ImportFromXmlButton
             // 
-            this.OpenFromXMLButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.OpenFromXMLButton.Location = new System.Drawing.Point(588, 452);
-            this.OpenFromXMLButton.Name = "OpenFromXMLButton";
-            this.OpenFromXMLButton.Size = new System.Drawing.Size(95, 25);
-            this.OpenFromXMLButton.TabIndex = 1;
-            this.OpenFromXMLButton.Text = "Open from XML";
-            this.OpenFromXMLButton.UseVisualStyleBackColor = true;
+            this.ImportFromXmlButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.ImportFromXmlButton.Location = new System.Drawing.Point(588, 452);
+            this.ImportFromXmlButton.Name = "ImportFromXmlButton";
+            this.ImportFromXmlButton.Size = new System.Drawing.Size(95, 25);
+            this.ImportFromXmlButton.TabIndex = 1;
+            this.ImportFromXmlButton.Text = "Import from XML";
+            this.ImportFromXmlButton.UseVisualStyleBackColor = true;
             // 
             // AddNewEmployeeButton
             // 
@@ -160,15 +160,15 @@ namespace EmployeeAccounting.Views
             this.pictureBox1.TabIndex = 4;
             this.pictureBox1.TabStop = false;
             // 
-            // SaveToXMLButton
+            // ExportToXmlButton
             // 
-            this.SaveToXMLButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.SaveToXMLButton.Location = new System.Drawing.Point(689, 452);
-            this.SaveToXMLButton.Name = "SaveToXMLButton";
-            this.SaveToXMLButton.Size = new System.Drawing.Size(95, 25);
-            this.SaveToXMLButton.TabIndex = 5;
-            this.SaveToXMLButton.Text = "Save to XML";
-            this.SaveToXMLButton.UseVisualStyleBackColor = true;
+            this.ExportToXmlButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.ExportToXmlButton.Location = new System.Drawing.Point(689, 452);
+            this.ExportToXmlButton.Name = "ExportToXmlButton";
+            this.ExportToXmlButton.Size = new System.Drawing.Size(95, 25);
+            this.ExportToXmlButton.TabIndex = 5;
+            this.ExportToXmlButton.Text = "Export to XML";
+            this.ExportToXmlButton.UseVisualStyleBackColor = true;
             // 
             // idDataGridViewTextBoxColumn
             // 
@@ -329,11 +329,11 @@ namespace EmployeeAccounting.Views
             this.Controls.Add(this.label4);
             this.Controls.Add(this.TotalLabel);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.SaveToXMLButton);
+            this.Controls.Add(this.ExportToXmlButton);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.SearchInputStr);
             this.Controls.Add(this.AddNewEmployeeButton);
-            this.Controls.Add(this.OpenFromXMLButton);
+            this.Controls.Add(this.ImportFromXmlButton);
             this.Controls.Add(this.EmployeesDataGrid);
             this.MinimumSize = new System.Drawing.Size(800, 550);
             this.Name = "MainForm";
@@ -349,11 +349,11 @@ namespace EmployeeAccounting.Views
         #endregion
 
         private System.Windows.Forms.DataGridView EmployeesDataGrid;
-        private System.Windows.Forms.Button OpenFromXMLButton;
+        private System.Windows.Forms.Button ImportFromXmlButton;
         private System.Windows.Forms.Button AddNewEmployeeButton;
         private System.Windows.Forms.TextBox SearchInputStr;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Button SaveToXMLButton;
+        private System.Windows.Forms.Button ExportToXmlButton;
         private System.Windows.Forms.ContextMenuStrip RowContextMenu;
         private System.Windows.Forms.ToolStripMenuItem dismissToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem recruiteToolStripMenuItem;

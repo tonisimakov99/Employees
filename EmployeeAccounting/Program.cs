@@ -1,40 +1,44 @@
 ﻿using System;
-using System.Diagnostics.Eventing.Reader;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
-using EmployeeAccounting.Controllers;
 using EmployeeAccounting.Views;
 using EmployeeService.DataBase;
-using EmployeeService.DataExchange;
-using EmployeeService.Employer;
-using EmployeeService.Searcher;
 using GroboContainer.Core;
 using GroboContainer.Impl;
-using GroboContainer.Impl.Exceptions;
 
 namespace EmployeeAccounting
 {
-    static class Program
+    internal static class Program
     {
         /// <summary>
-        /// Главная точка входа для приложения.
+        ///     Главная точка входа для приложения.
         /// </summary>
         [STAThread]
-        static void Main()
+        private static void Main()
         {
-            AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(Handler);
-            var container = new Container(new ContainerConfiguration(typeof(Employee).Assembly, typeof(MainForm).Assembly));
-            ConfigureContainer(container);
+            AppDomain.CurrentDomain.UnhandledException += Handler;
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(container.Get<MainForm>());
+            Application.Run(BuildContainer().Get<MainForm>());
         }
 
         private static void Handler(object sender, UnhandledExceptionEventArgs e)
         {
-            var exception = (Exception)e.ExceptionObject;
+            var exception = (Exception) e.ExceptionObject;
             var message = $"{exception.Message} StackTrace:" +
                           $"{exception.StackTrace}";
-            MessageBox.Show(message, "Exception", MessageBoxButtons.OK,MessageBoxIcon.Error,MessageBoxDefaultButton.Button1,MessageBoxOptions.DefaultDesktopOnly);
+            MessageBox.Show(message, "Exception", MessageBoxButtons.OK, MessageBoxIcon.Error,
+                MessageBoxDefaultButton.Button1, MessageBoxOptions.DefaultDesktopOnly);
+        }
+
+        private static IContainer BuildContainer()
+        {
+            var containerConfiguration = new ContainerConfiguration(typeof(Employee).Assembly, typeof(MainForm).Assembly);
+            var container = new Container(containerConfiguration);
+
+            ConfigureContainer(container);
+
+            return container;
         }
 
         private static void ConfigureContainer(IContainer container)

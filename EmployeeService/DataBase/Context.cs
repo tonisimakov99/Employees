@@ -3,13 +3,12 @@
 namespace EmployeeService.DataBase
 {
     [DbConfigurationType(typeof(Configuration))]
-    public class Context:DbContext
+    public class Context : DbContext
     {
-        public DbSet<Employee> Employees { get; set; }
-        public Context(string connectionStr):base(connectionStr)
+        public Context(string connectionStr) : base(connectionStr)
         {
-
         }
 
+        public DbSet<Employee> Employees { get; set; }
     }
 }

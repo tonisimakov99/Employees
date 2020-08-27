@@ -6,10 +6,10 @@ namespace EmployeeService.Employer
 {
     public interface IEmployeeManager
     {
-        [NotNull] 
-        Employee Recruit([NotNull] Employee employee, DateTime date);
+        [NotNull]
+        Employee Recruit([NotNull] Employee employee);
 
-        [NotNull] 
-        Employee Dismiss([NotNull] Employee employee, DateTime date);
+        [NotNull]
+        Employee Dismiss([NotNull] Employee employee);
     }
 }

@@ -1,7 +1,5 @@
 ﻿using System.IO;
-using System.Linq;
 using System.Xml.Serialization;
-using EmployeeService.DataBase;
 using JetBrains.Annotations;
 
 namespace EmployeeService.DataExchange

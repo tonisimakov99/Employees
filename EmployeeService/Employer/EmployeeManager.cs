@@ -7,17 +7,19 @@ namespace EmployeeService.Employer
     public class EmployeeManager : IEmployeeManager
     {
         [NotNull]
-        public Employee Recruit([NotNull] Employee employee, DateTime date)
+        public Employee Recruit([NotNull] Employee employee)
         {
-            employee.EmploymentDate = date;
-            employee.DismissalDate = null;
+            if (employee.RecruitDate == null || employee.DismissDate != null)
+                employee.RecruitDate = DateTime.Today;
+            employee.DismissDate = null;
             return employee;
         }
 
         [NotNull]
-        public Employee Dismiss([NotNull] Employee employee, DateTime date)
+        public Employee Dismiss([NotNull] Employee employee)
         {
-            employee.DismissalDate = date;
+            if (employee.DismissDate == null)
+                employee.DismissDate = DateTime.Today;
             return employee;
         }
     }

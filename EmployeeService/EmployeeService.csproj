@@ -58,19 +58,16 @@
     <Compile Include="DataBase\Context.cs" />
     <Compile Include="DataBase\ContextFactory.cs" />
     <Compile Include="DataBase\Employee.cs" />
-    <Compile Include="DataBase\EmployeesEfRepository.cs" />
-    <Compile Include="DataBase\IRepository.cs" />
+    <Compile Include="DataBase\EmployeeStorage.cs" />
+    <Compile Include="DataBase\IEmployeeStorage.cs" />
     <Compile Include="DataExchange\ExporterFactory.cs" />
     <Compile Include="DataExchange\IExporter.cs" />
-    <Compile Include="DataExchange\IImporter.cs" />
-    <Compile Include="DataExchange\ImporterFactory.cs" />
     <Compile Include="DataExchange\XmlExporter.cs" />
-    <Compile Include="DataExchange\XmlImporter.cs" />
     <Compile Include="Employer\EmployeeManager.cs" />
     <Compile Include="Employer\IEmployeeManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Searcher\ISearcher.cs" />
-    <Compile Include="Searcher\SearcherByString.cs" />
+    <Compile Include="Searcher\EmployeeSearcherByString.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

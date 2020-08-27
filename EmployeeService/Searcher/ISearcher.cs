@@ -6,8 +6,8 @@ namespace EmployeeService.Searcher
 {
     public interface IEmployeeSearcher
     {
-        
-        [NotNull,ItemNotNull] 
-        IEnumerable<Employee> Search([NotNull, ItemNotNull] IEnumerable<Employee> employees, [NotNull, ItemNotNull] params string[] request);
+        [NotNull]
+        [ItemNotNull]
+        IEnumerable<Employee> Search([NotNull] string searchRequest);
     }
 }

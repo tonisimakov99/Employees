@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Windows.Forms.VisualStyles;
 using EmployeeService.DataBase;
 using EmployeeService.DataExchange;
 using EmployeeService.Employer;
@@ -10,65 +9,55 @@ using JetBrains.Annotations;
 
 namespace EmployeeAccounting.Controllers
 {
-    public class MainController : IMainController
+    public class MainController
     {
+        private readonly IEmployeeStorage employeeStorage;
         private readonly IEmployeeManager employeeManager;
-        private readonly IEmployeeSearcher searcher;
-        private readonly IEmployeeRepository repository;
         private readonly ExporterFactory exporterFactory;
-        private readonly ImporterFactory importerFactory;
+        private readonly IEmployeeSearcher searcher;
 
         public MainController(
-            IEmployeeRepository repository,
+            IEmployeeStorage employeeStorage,
             IEmployeeManager employeeManager,
             IEmployeeSearcher searcher,
-            ExporterFactory exporterFactory,
-            ImporterFactory importerFactory)
+            ExporterFactory exporterFactory)
         {
-            this.repository = repository;
+            this.employeeStorage = employeeStorage;
             this.employeeManager = employeeManager;
             this.searcher = searcher;
             this.exporterFactory = exporterFactory;
-            this.importerFactory = importerFactory;
         }
 
         public void AddNewEmployee([NotNull] Employee employee)
         {
-            repository.AddNew(employee);
+            employeeManager.Recruit(employee);
+            employeeStorage.Write(employee);
         }
 
         [NotNull]
         [ItemNotNull]
-        public IEnumerable<Employee> Search([NotNull] string str)
+        public IEnumerable<Employee> Search([NotNull] string searchRequest)
         {
-            var keyWords = str.Trim().Split(' ');
-            return searcher.Search(repository.GetAll(), keyWords);
+            return searcher.Search(searchRequest);
         }
 
         public void Dismiss(int id)
         {
-            var employee = repository.FindById(id) ?? throw new Exception("Bug, employee not found");
-            employeeManager.Dismiss(employee, DateTime.Today);
-            repository.Update(employee);
+            var employee = employeeStorage.TryReadById(id) ?? throw new Exception("Bug, employee not found");
+            employeeManager.Dismiss(employee);
+            employeeStorage.Write(employee);
         }
 
         public void Recruit(int id)
         {
-            var employee = repository.FindById(id) ?? throw new Exception("Bug, employee not found");
-            employeeManager.Recruit(employee, DateTime.Today);
-            repository.Update(employee);
+            var employee = employeeStorage.TryReadById(id) ?? throw new Exception("Bug, employee not found");
+            employeeManager.Recruit(employee);
+            employeeStorage.Write(employee);
         }
 
         public void ExportToXml([NotNull] Stream fileStream)
         {
-            exporterFactory.CreateXmlExporter<Employee[]>().Export(repository.GetAll(), fileStream);
-        }
-
-        public void ImportFromXml([NotNull] Stream fileStream)
-        {
-            var employes = importerFactory.CreateXmlExporter<Employee[]>().Import(fileStream);
-            repository.Clear();
-            repository.AddRange(employes);
+            exporterFactory.CreateXmlExporter<Employee[]>().Export(employeeStorage.ReadAll(), fileStream);
         }
     }
 }

@@ -30,7 +30,6 @@ namespace EmployeeAccounting.Views
             this.recruiteToolStripMenuItem.Click += RecruitMenuItemClick;
 
             this.ExportToXmlButton.Click += SaveToXmlButtonClick;
-            this.ImportFromXmlButton.Click += OpenFromXmlButtonClick;
         }
 
 
@@ -47,7 +46,6 @@ namespace EmployeeAccounting.Views
             this.RowContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.dismissToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.recruiteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ImportFromXmlButton = new System.Windows.Forms.Button();
             this.AddNewEmployeeButton = new System.Windows.Forms.Button();
             this.SearchInputStr = new System.Windows.Forms.TextBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -117,16 +115,6 @@ namespace EmployeeAccounting.Views
             this.recruiteToolStripMenuItem.Name = "recruiteToolStripMenuItem";
             this.recruiteToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
             this.recruiteToolStripMenuItem.Text = "Recruite";
-            // 
-            // ImportFromXmlButton
-            // 
-            this.ImportFromXmlButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.ImportFromXmlButton.Location = new System.Drawing.Point(588, 452);
-            this.ImportFromXmlButton.Name = "ImportFromXmlButton";
-            this.ImportFromXmlButton.Size = new System.Drawing.Size(95, 25);
-            this.ImportFromXmlButton.TabIndex = 1;
-            this.ImportFromXmlButton.Text = "Import from XML";
-            this.ImportFromXmlButton.UseVisualStyleBackColor = true;
             // 
             // AddNewEmployeeButton
             // 
@@ -333,7 +321,6 @@ namespace EmployeeAccounting.Views
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.SearchInputStr);
             this.Controls.Add(this.AddNewEmployeeButton);
-            this.Controls.Add(this.ImportFromXmlButton);
             this.Controls.Add(this.EmployeesDataGrid);
             this.MinimumSize = new System.Drawing.Size(800, 550);
             this.Name = "MainForm";
@@ -349,7 +336,6 @@ namespace EmployeeAccounting.Views
         #endregion
 
         private System.Windows.Forms.DataGridView EmployeesDataGrid;
-        private System.Windows.Forms.Button ImportFromXmlButton;
         private System.Windows.Forms.Button AddNewEmployeeButton;
         private System.Windows.Forms.TextBox SearchInputStr;
         private System.Windows.Forms.PictureBox pictureBox1;

@@ -19,11 +19,14 @@ namespace EmployeeService.Searcher
         [ItemNotNull]
         public IEnumerable<Employee> Search([NotNull] string searchRequest)
         {
+            if (string.IsNullOrEmpty(searchRequest))
+                return storage.ReadAll();
+
             var keyWords = searchRequest.Split(new[] {' '}, StringSplitOptions.RemoveEmptyEntries);
             return storage.ReadAll().Where(employee => IsSuccessSearch(employee, keyWords));
         }
 
-        private bool IsSuccessSearch([NotNull] Employee employee, [NotNull] [ItemNotNull] string[] keyWords)
+        private bool IsSuccessSearch([NotNull] Employee employee, [NotNull] [ItemNotNull] IEnumerable<string> keyWords)
         {
             return keyWords.Any(str =>
                 employee.Name.StartsWith(str, StringComparison.OrdinalIgnoreCase) ||
